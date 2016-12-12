@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">PanicTrigger</string>
+    <string name="action_trigger">Trigger!</string>
+    <string name="action_test_run">Test Run</string>
+    <string name="test_dialog_title">Ripple Test Run</string>
+    <string name="responders">Trigger Responders</string>
+    <string name="responders_summary">Manage the applications who can respond to the trigger</string>
+    <string name="dry_run">Dry Run</string>
+    <string name="dry_run_summary">Options for safely test the behaviour of the app</string>
+    <string name="swipe_down_to_trigger">Swipe down to trigger</string>
+    <string name="release_to_confirm">Release to confirm</string>
+    <string name="panic_test_successful">Good job! In a real scenario, your trigger would have rippled out to all of the responder apps.  And those apps would then respond by locking or whatever other behaviors you have configured.</string>
+    <string name="intro_instructions">When you trigger a ripple, your chosen apps react.  Tap EDIT to see and change that app\'s behaviors.</string>
+    <string name="tap_anywhere_to_cancel">Tap anywhere to cancel</string>
+    <string name="tap_to_trigger">Tap to trigger</string>
+    <string name="only_a_test">This is only a test</string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
+    <string name="got_it">Got it</string>
+    <string name="app_hides">App hides when triggered</string>
+    <string name="pref_countdown_enabled_summary">Select if a countdown should be fired before trigger</string>
+    <string name="countdown">Countdown</string>
+    <string name="login_action">Login failure action</string>
+    <string name="pref_login_actions_summary">Run after login failure</string>
+    <string name="login_failures_number">Failures number</string>
+    <string name="pref_login_failures_number_summary">Number of times the login must fail.</string>
+    <string name="monitor_login_failues">Monitor login failures</string>
+    <string name="confirmation_dialog">Confirmation dialog</string>
+    <string name="confirmation_dialog_summary">Configure the confirmation dialog behavior</string>
+    <string name="trigger_methods">Trigger mehods</string>
+    <string name="trigger_methods_summary">Configure when trigger a panic request</string>
+    <string name="notification_enabled">Persistent notification</string>
+    <string name="notification_enabled_summary">Trigger Panic from a persistent notification</string>
+    <string name="dry_run_enabled">Enable Dry Run</string>
+    <string name="dry_run_enabled_summary">Run on test mode for debug the trigger behaviour</string>
+    <string name="countdown_seconds">Countdown seconds</string>
+    <string name="countdown_seconds_summary">Countdown duration</string>
+    <string name="disable_dialog_on_login">Loging after failure confirmation</string>
+    <string name="enable_dialog_on_login_summary">Enable confirmation dialog when run after login failure</string>
+    <string name="locked_device">Locked device</string>
+
+    <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
+    <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
+    <string name="pref_login_action" translatable="false">pref_login_action</string>
+    <string name="prefscreen_confirmation_dialog" translatable="false">prefscreen_confirmation_dialog</string>
+    <string name="pref_app_listeners" translatable="false">pref_app_listeners</string>
+    <string name="prefscreen_delete_files" translatable="false">prefscreen_delete_files</string>
+    <string name="prefscreen_debug" translatable="false">prefscreen_debug</string>
+    <string name="prefscreen_trigger_methods" translatable="false">prefscreen_trigger_methods</string>
+    <string name="pref_notification_enabled" translatable="false">pref_notification_enabled</string>
+    <string name="pref_dry_run_enabled" translatable="false">pref_dry_run_enabled</string>
+    <string name="pref_run_test" translatable="false">pref_run_test</string>
+    <string name="pref_countdown_seconds" translatable="false">pref_countdown_seconds</string>
+    <string name="pref_enable_dialog_on_login" translatable="false">pref_enable_dialog_on_login</string>
+
+</resources>

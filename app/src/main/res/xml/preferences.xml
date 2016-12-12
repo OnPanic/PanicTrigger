@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:key="prefscreen_trigger_methods"
+        android:persistent="false"
+        android:summary="@string/trigger_methods_summary"
+        android:title="@string/trigger_methods">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_notification_enabled"
+            android:summary="@string/notification_enabled_summary"
+            android:title="@string/notification_enabled" />
+
+        <PreferenceCategory android:title="@string/locked_device">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="@string/pref_login_action"
+                android:summary="@string/pref_login_actions_summary"
+                android:title="@string/login_action" />
+
+            <EditTextPreference
+                android:defaultValue="2"
+                android:dependency="@string/pref_login_action"
+                android:inputType="number"
+                android:key="@string/pref_login_failures_number"
+                android:numeric="integer"
+                android:summary="@string/pref_login_failures_number_summary"
+                android:title="@string/login_failures_number" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="@string/pref_login_action"
+                android:key="@string/pref_enable_dialog_on_login"
+                android:summary="@string/enable_dialog_on_login_summary"
+                android:title="@string/disable_dialog_on_login" />
+
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="prefscreen_confirmation_dialog"
+        android:persistent="false"
+        android:summary="@string/confirmation_dialog_summary"
+        android:title="@string/confirmation_dialog">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_countdown_enabled"
+            android:summary="@string/pref_countdown_enabled_summary"
+            android:title="@string/countdown" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:dependency="@string/pref_countdown_enabled"
+            android:inputType="number"
+            android:key="@string/pref_countdown_seconds"
+            android:numeric="integer"
+            android:summary="@string/countdown_seconds_summary"
+            android:title="@string/countdown_seconds" />
+
+    </PreferenceScreen>
+
+    <Preference
+        android:key="@string/pref_app_listeners"
+        android:summary="@string/responders_summary"
+        android:title="@string/responders" />
+
+    <PreferenceScreen
+        android:key="prefscreen_debug"
+        android:persistent="false"
+        android:summary="@string/dry_run_summary"
+        android:title="@string/dry_run">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_dry_run_enabled"
+            android:summary="@string/dry_run_enabled_summary"
+            android:title="@string/dry_run_enabled" />
+
+        <Preference
+            android:key="@string/pref_run_test"
+            android:title="@string/action_test_run" />
+
+    </PreferenceScreen>
+
+</PreferenceScreen>
