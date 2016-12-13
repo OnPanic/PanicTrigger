@@ -11,6 +11,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
+import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 import llanes.ezquerro.juan.panictrigger.lockedscreen.PasswordFailsReceiver;
 
@@ -28,6 +29,7 @@ public class PanicTriggerActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.preferences);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         runTest = (Preference) findPreference(getString(R.string.pref_run_test));
         runTest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -38,20 +40,16 @@ public class PanicTriggerActivity extends PreferenceActivity {
                 finish();
                 return false;
             }
-
         });
 
         showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
         showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference arg0) {
-                // Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
-                // intent.putExtra(PanicTriggerConstants.TEST_RUN, true);
-                // startActivity(intent);
-                // finish();
+                Intent intent = new Intent(PanicTriggerActivity.this, ReceiversActivity.class);
+                startActivity(intent);
                 return false;
             }
-
         });
 
         mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PanicTrigger</string>
+    <string name="app_name">Panic Trigger</string>
     <string name="action_trigger">Trigger!</string>
     <string name="action_test_run">Test Run</string>
     <string name="test_dialog_title">Ripple Test Run</string>
