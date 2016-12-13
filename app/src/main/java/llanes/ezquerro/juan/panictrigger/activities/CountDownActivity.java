@@ -3,10 +3,12 @@ package llanes.ezquerro.juan.panictrigger.activities;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -33,6 +35,7 @@ public class CountDownActivity extends Activity {
     private ImageView mCancelButton;
     private int mCountDown = 0xff;
     private boolean mTestRun;
+    private SharedPreferences prefs;
 
     // lint is failing to see that setOnSystemUiVisibilityChangeListener is wrapped in
     // if (Build.VERSION.SDK_INT >= 11).
@@ -42,6 +45,7 @@ public class CountDownActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mTestRun = getIntent().getBooleanExtra(PanicTriggerConstants.TEST_RUN, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
@@ -67,7 +71,8 @@ public class CountDownActivity extends Activity {
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_COUNT_DOWN_DONE, false)) {
             showDoneScreen();
         } else {
-            mCountDownAsyncTask.execute();
+            mCountDownAsyncTask.execute(
+                    Integer.parseInt(prefs.getString(getString(R.string.pref_countdown_seconds), "5")));
         }
 
         RelativeLayout frameRoot = (RelativeLayout) findViewById(R.id.frameRoot);
@@ -122,7 +127,7 @@ public class CountDownActivity extends Activity {
         mCountDownNumber.setVisibility(View.GONE);
     }
 
-    private class CountDownAsyncTask extends AsyncTask<Void, Integer, Void> {
+    private class CountDownAsyncTask extends AsyncTask<Integer, Integer, Void> {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -135,9 +140,9 @@ public class CountDownActivity extends Activity {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(Integer... count) {
             try {
-                int countdown = 5;
+                int countdown = count[0];
                 while (countdown >= 0) {
                     publishProgress(countdown);
                     countdown--;
