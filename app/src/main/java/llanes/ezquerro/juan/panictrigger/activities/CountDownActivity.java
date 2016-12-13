@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.guardianproject.panic.PanicTrigger;
 import llanes.ezquerro.juan.panictrigger.R;
@@ -33,7 +35,6 @@ public class CountDownActivity extends Activity {
     private ImageView mCancelButton;
     private int mCountDown = 0xff;
     private boolean mTestRun;
-    private boolean mDryRun;
     private SharedPreferences prefs;
 
     // lint is failing to see that setOnSystemUiVisibilityChangeListener is wrapped in
@@ -45,7 +46,6 @@ public class CountDownActivity extends Activity {
 
         mTestRun = getIntent().getBooleanExtra(PanicTriggerConstants.TEST_RUN, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mDryRun = prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false);
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
@@ -163,7 +163,7 @@ public class CountDownActivity extends Activity {
 
             final Activity activity = CountDownActivity.this;
 
-            if (mTestRun || mDryRun) {
+            if (mTestRun) {
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.test_dialog_title)
                         .setMessage(R.string.panic_test_successful)
@@ -174,11 +174,20 @@ public class CountDownActivity extends Activity {
                                 CountDownActivity.this.finish();
                             }
                         }).show();
+            } else {
+                PanicTrigger.sendTrigger(activity);
+                Toast.makeText(activity, R.string.done, Toast.LENGTH_LONG).show();
 
-                return;
+                /* This app needs to stay running for a while to make sure that it sends
+                 * all of the Intents to Activities, Services, and BroadcastReceivers. If
+                 * it exits too soon, they will not get sent. */
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ExitActivity.exitAndRemoveFromRecentApps(activity);
+                    }
+                }, 10000); // 10 second delay
             }
-
-            PanicTrigger.sendTrigger(activity);
         }
     }
 }

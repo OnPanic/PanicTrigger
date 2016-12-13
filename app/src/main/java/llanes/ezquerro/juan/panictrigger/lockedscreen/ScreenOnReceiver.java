@@ -15,10 +15,10 @@ public class ScreenOnReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             if (PasswordFailsReceiver.triggerRipple) {
+                PasswordFailsReceiver.triggerRipple = false;
                 Intent panic = new Intent(context, PanicActivity.class);
                 panic.putExtra(PanicTriggerConstants.RUN_FROM_LOGIN, true);
                 context.startActivity(panic);
-                PasswordFailsReceiver.triggerRipple = false;
             }
         }
     }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.guardianproject.panic.PanicTrigger;
 import llanes.ezquerro.juan.panictrigger.R;
@@ -44,24 +46,10 @@ public class PanicActivity extends Activity implements OnTouchListener {
     private int mRedDelta;
     private int mGreenDelta;
     private int mBlueDelta;
-    private Intent request;
-    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        request = getIntent();
-
-        Boolean triggerNow = (request != null)
-                && request.getBooleanExtra(PanicTriggerConstants.RUN_FROM_LOGIN, false)
-                && !prefs.getBoolean(getString(R.string.pref_enable_dialog_on_login), true);
-
-        if (triggerNow) {
-            PanicTrigger.sendTrigger(PanicActivity.this);
-            return;
-        }
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
@@ -136,6 +124,8 @@ public class PanicActivity extends Activity implements OnTouchListener {
                     mRipples.invalidate();
 
                     if (mReleaseWillTrigger) {
+                        SharedPreferences prefs =
+                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
                         if (prefs.getBoolean(getString(R.string.pref_countdown_enabled), false)) {
                             AnimationHelpers.scale(mPanicSwipeButton, 1.0f, 0, 200, new Runnable() {
@@ -144,13 +134,24 @@ public class PanicActivity extends Activity implements OnTouchListener {
                                     Intent intent = new Intent(getBaseContext(), CountDownActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     intent.putExtra(PanicTriggerConstants.TEST_RUN,
-                                            request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false));
+                                            getIntent().getBooleanExtra(PanicTriggerConstants.TEST_RUN, false));
                                     startActivity(intent);
                                     finish();
                                 }
                             });
                         } else {
                             PanicTrigger.sendTrigger(PanicActivity.this);
+                            Toast.makeText(PanicActivity.this, R.string.done, Toast.LENGTH_LONG).show();
+
+                            /* This app needs to stay running for a while to make sure that it sends
+                             * all of the Intents to Activities, Services, and BroadcastReceivers. If
+                             * it exits too soon, they will not get sent. */
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
+                                }
+                            }, 10000); // 10 second delay
                         }
                     } else {
                         AnimationHelpers.translateY(mPanicSwipeButton, yCurrentTranslation, 0, 200);
