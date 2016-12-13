@@ -58,8 +58,10 @@ public class PanicActivity extends Activity implements OnTouchListener {
                 && request.getBooleanExtra(PanicTriggerConstants.RUN_FROM_LOGIN, false)
                 && !prefs.getBoolean(getString(R.string.pref_enable_dialog_on_login), true);
 
-        if (triggerNow)
+        if (triggerNow) {
             PanicTrigger.sendTrigger(PanicActivity.this);
+            return;
+        }
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
