@@ -30,7 +30,7 @@
                 android:title="@string/login_failures_number" />
 
             <SwitchPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:dependency="@string/pref_login_action"
                 android:key="@string/pref_enable_dialog_on_login"
                 android:summary="@string/enable_dialog_on_login_summary"
