@@ -26,7 +26,7 @@
     <string name="pref_login_failures_number_summary">Number of times the login must fail.</string>
     <string name="monitor_login_failues">Monitor login failures</string>
     <string name="confirmation_dialog">Confirmation dialog</string>
-    <string name="confirmation_dialog_summary">Configure the confirmation dialog behavior</string>
+    <string name="confirmation_dialog_summary">Configure the confirmation method</string>
     <string name="trigger_methods">Trigger mehods</string>
     <string name="trigger_methods_summary">Configure when trigger a panic request</string>
     <string name="notification_enabled">Persistent notification</string>
@@ -39,6 +39,11 @@
     <string name="enable_dialog_on_login_summary">Enable confirmation dialog when run after login failure</string>
     <string name="locked_device">Locked device</string>
     <string name="web_page">Project page</string>
+    <string name="available_methods">Available methods</string>
+    <string name="swipe">Swipe</string>
+    <string name="dialog_swipe_summary">Swipe button to confirm trigger</string>
+    <string name="none">None</string>
+    <string name="dialog_none_summary">Disable confirmation</string>
     <string name="web_page_summary">Visit the project page for detailed configuration instructions</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
@@ -55,5 +60,7 @@
     <string name="pref_countdown_seconds" translatable="false">pref_countdown_seconds</string>
     <string name="pref_enable_dialog_on_login" translatable="false">pref_enable_dialog_on_login</string>
     <string name="prefs_web_page" translatable="false">prefs_web_page</string>
+    <string name="pref_dialog_none" translatable="false">pref_dialog_none</string>
+    <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>
 
 </resources>

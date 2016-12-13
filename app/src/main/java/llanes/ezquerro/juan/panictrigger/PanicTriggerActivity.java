@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
@@ -22,6 +23,9 @@ public class PanicTriggerActivity extends PreferenceActivity {
     private ComponentName deviceAdminComponentName;
     private Preference runTest = null;
     private Preference showReceivers = null;
+    private SwitchPreference swipeDialog;
+    private SwitchPreference countdownDialog;
+    private SwitchPreference loginAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,9 @@ public class PanicTriggerActivity extends PreferenceActivity {
             }
         });
 
+        loginAction = (SwitchPreference) findPreference(getString(R.string.pref_login_action));
+        swipeDialog = (SwitchPreference) findPreference(getString(R.string.pref_dialog_swipe));
+        countdownDialog = (SwitchPreference) findPreference(getString(R.string.pref_countdown_enabled));
         showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
         showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -68,6 +75,10 @@ public class PanicTriggerActivity extends PreferenceActivity {
                         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.monitor_login_failues));
                         startActivityForResult(intent, PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST);
                     }
+                } else if (key.equals(getString(R.string.pref_dialog_swipe))) {
+                    countdownDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_dialog_swipe), false));
+                } else if (key.equals(getString(R.string.pref_countdown_enabled))) {
+                    swipeDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_countdown_enabled), false));
                 }
             }
         };
@@ -105,9 +116,7 @@ public class PanicTriggerActivity extends PreferenceActivity {
         switch (requestCode) {
             case PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST:
                 if (!devicePolicyManager.isAdminActive(deviceAdminComponentName)) {
-                    SharedPreferences.Editor edit = prefs.edit();
-                    edit.putBoolean(getString(R.string.pref_login_action), false);
-                    edit.apply();
+                    loginAction.setChecked(false);
                 }
                 return;
         }

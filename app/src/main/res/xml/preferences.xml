@@ -47,19 +47,37 @@
         android:title="@string/confirmation_dialog">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/pref_countdown_enabled"
-            android:summary="@string/pref_countdown_enabled_summary"
-            android:title="@string/countdown" />
+            android:defaultValue="false"
+            android:disableDependentsState="true"
+            android:key="@string/pref_dialog_none"
+            android:summary="@string/dialog_none_summary"
+            android:title="@string/none" />
 
-        <EditTextPreference
-            android:defaultValue="5"
-            android:dependency="@string/pref_countdown_enabled"
-            android:inputType="number"
-            android:key="@string/pref_countdown_seconds"
-            android:numeric="integer"
-            android:summary="@string/countdown_seconds_summary"
-            android:title="@string/countdown_seconds" />
+        <PreferenceCategory android:title="@string/available_methods">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:dependency="@string/pref_dialog_none"
+                android:key="@string/pref_dialog_swipe"
+                android:summary="@string/dialog_swipe_summary"
+                android:title="@string/swipe" />
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:dependency="@string/pref_dialog_none"
+                android:key="@string/pref_countdown_enabled"
+                android:summary="@string/pref_countdown_enabled_summary"
+                android:title="@string/countdown" />
+
+            <EditTextPreference
+                android:defaultValue="5"
+                android:dependency="@string/pref_countdown_enabled"
+                android:inputType="number"
+                android:key="@string/pref_countdown_seconds"
+                android:numeric="integer"
+                android:summary="@string/countdown_seconds_summary"
+                android:title="@string/countdown_seconds" />
+        </PreferenceCategory>
 
     </PreferenceScreen>
 
@@ -88,9 +106,10 @@
 
     <Preference
         android:key="@string/prefs_web_page"
-        android:title="@string/web_page"
-        android:summary="@string/web_page_summary">
-        <intent android:action="android.intent.action.VIEW"
+        android:summary="@string/web_page_summary"
+        android:title="@string/web_page">
+        <intent
+            android:action="android.intent.action.VIEW"
             android:data="https://github.com/arrase/PanicTrigger" />
     </Preference>
 
