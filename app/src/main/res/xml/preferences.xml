@@ -86,4 +86,12 @@
 
     </PreferenceScreen>
 
+    <Preference
+        android:key="@string/prefs_web_page"
+        android:title="@string/web_page"
+        android:summary="@string/web_page_summary">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://github.com/arrase/PanicTrigger" />
+    </Preference>
+
 </PreferenceScreen>

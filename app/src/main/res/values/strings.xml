@@ -38,6 +38,8 @@
     <string name="disable_dialog_on_login">Loging after failure confirmation</string>
     <string name="enable_dialog_on_login_summary">Enable confirmation dialog when run after login failure</string>
     <string name="locked_device">Locked device</string>
+    <string name="web_page">Project page</string>
+    <string name="web_page_summary">Visit the project page for detailed configuration instructions</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
@@ -52,5 +54,6 @@
     <string name="pref_run_test" translatable="false">pref_run_test</string>
     <string name="pref_countdown_seconds" translatable="false">pref_countdown_seconds</string>
     <string name="pref_enable_dialog_on_login" translatable="false">pref_enable_dialog_on_login</string>
+    <string name="prefs_web_page" translatable="false">prefs_web_page</string>
 
 </resources>
