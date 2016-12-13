@@ -29,6 +29,11 @@
 
         <activity
             android:name=".activities.PanicActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name=".activities.SwipeActivity"
             android:launchMode="singleTask" />
 
         <activity

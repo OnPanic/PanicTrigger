@@ -2,28 +2,20 @@ package llanes.ezquerro.juan.panictrigger.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import info.guardianproject.panic.PanicTrigger;
 import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 
 public class CountDownActivity extends Activity {
 
@@ -31,11 +23,7 @@ public class CountDownActivity extends Activity {
 
     private CountDownAsyncTask mCountDownAsyncTask;
     private TextView mCountDownNumber;
-    private TextView mTouchToCancel;
-    private ImageView mCancelButton;
     private int mCountDown = 0xff;
-    private boolean mTestRun;
-    private SharedPreferences prefs;
 
     // lint is failing to see that setOnSystemUiVisibilityChangeListener is wrapped in
     // if (Build.VERSION.SDK_INT >= 11).
@@ -44,8 +32,7 @@ public class CountDownActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTestRun = getIntent().getBooleanExtra(PanicTriggerConstants.TEST_RUN, false);
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
@@ -63,13 +50,10 @@ public class CountDownActivity extends Activity {
         mCountDownNumber = (TextView) findViewById(R.id.countDownNumber);
         mCountDownNumber.setTextSize(((float) scale) / 5);
 
-        mTouchToCancel = (TextView) findViewById(R.id.tap_anywhere_to_cancel);
-        mCancelButton = (ImageView) findViewById(R.id.cancelButton);
-
         mCountDownAsyncTask = new CountDownAsyncTask();
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_COUNT_DOWN_DONE, false)) {
-            showDoneScreen();
+            done();
         } else {
             mCountDownAsyncTask.execute(
                     Integer.parseInt(prefs.getString(getString(R.string.pref_countdown_seconds), "5")));
@@ -117,14 +101,13 @@ public class CountDownActivity extends Activity {
 
     private void cancel() {
         mCountDownAsyncTask.cancel(true);
+        setResult(Activity.RESULT_CANCELED);
         finish();
     }
 
-    private void showDoneScreen() {
-        mTouchToCancel.setText(R.string.done);
-        mTouchToCancel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 64);
-        mCancelButton.setVisibility(View.GONE);
-        mCountDownNumber.setVisibility(View.GONE);
+    private void done() {
+        setResult(Activity.RESULT_OK);
+        finish();
     }
 
     private class CountDownAsyncTask extends AsyncTask<Integer, Integer, Void> {
@@ -135,7 +118,7 @@ public class CountDownActivity extends Activity {
             if (values[0] > 0) {
                 mCountDownNumber.setText(String.valueOf(values[0]));
             } else {
-                showDoneScreen();
+                done();
             }
         }
 
@@ -152,7 +135,7 @@ public class CountDownActivity extends Activity {
                     }
                 }
             } catch (InterruptedException e) {
-                // ignored
+                // Silent block
             }
             return null;
         }
@@ -160,34 +143,6 @@ public class CountDownActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            final Activity activity = CountDownActivity.this;
-
-            if (mTestRun) {
-                new AlertDialog.Builder(activity)
-                        .setTitle(R.string.test_dialog_title)
-                        .setMessage(R.string.panic_test_successful)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                CountDownActivity.this.finish();
-                            }
-                        }).show();
-            } else {
-                PanicTrigger.sendTrigger(activity);
-                Toast.makeText(activity, R.string.done, Toast.LENGTH_LONG).show();
-
-                /* This app needs to stay running for a while to make sure that it sends
-                 * all of the Intents to Activities, Services, and BroadcastReceivers. If
-                 * it exits too soon, they will not get sent. */
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ExitActivity.exitAndRemoveFromRecentApps(activity);
-                    }
-                }, 10000); // 10 second delay
-            }
         }
     }
 }
