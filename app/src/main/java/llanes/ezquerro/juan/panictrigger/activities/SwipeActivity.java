@@ -57,11 +57,13 @@ public class SwipeActivity extends Activity implements OnTouchListener {
         mPanicSwipeButton = (ImageView) findViewById(R.id.panic_swipe_button);
         mPanicSwipeButton.setOnTouchListener(this);
 
+        final Activity activity = this;
         View btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SwipeActivity.this.finish();
+                activity.setResult(Activity.RESULT_CANCELED);
+                activity.finish();
             }
         });
 

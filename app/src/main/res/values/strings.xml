@@ -33,8 +33,8 @@
     <string name="dry_run_enabled_summary">Run on test mode for debug the trigger behaviour</string>
     <string name="countdown_seconds">Countdown seconds</string>
     <string name="countdown_seconds_summary">Countdown duration</string>
-    <string name="disable_dialog_on_login">Loging after failure confirmation</string>
-    <string name="enable_dialog_on_login_summary">Enable confirmation dialog when run after login failure</string>
+    <string name="disable_dialog_on_login">Disable confirmation when login</string>
+    <string name="disable_dialog_on_login_summary">Disable confirmation dialog when run after login failure</string>
     <string name="locked_device">Locked device</string>
     <string name="web_page">Project page</string>
     <string name="available_methods">Available methods</string>
@@ -43,20 +43,18 @@
     <string name="none">None</string>
     <string name="dialog_none_summary">Disable confirmation</string>
     <string name="web_page_summary">Visit the project page for detailed configuration instructions</string>
+    <string name="panic_notification">Panic notification</string>
+    <string name="panic_notification_content">Click for trigger</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
     <string name="pref_login_action" translatable="false">pref_login_action</string>
-    <string name="prefscreen_confirmation_dialog" translatable="false">prefscreen_confirmation_dialog</string>
     <string name="pref_app_listeners" translatable="false">pref_app_listeners</string>
-    <string name="prefscreen_delete_files" translatable="false">prefscreen_delete_files</string>
-    <string name="prefscreen_debug" translatable="false">prefscreen_debug</string>
-    <string name="prefscreen_trigger_methods" translatable="false">prefscreen_trigger_methods</string>
     <string name="pref_notification_enabled" translatable="false">pref_notification_enabled</string>
     <string name="pref_dry_run_enabled" translatable="false">pref_dry_run_enabled</string>
     <string name="pref_run_test" translatable="false">pref_run_test</string>
     <string name="pref_countdown_seconds" translatable="false">pref_countdown_seconds</string>
-    <string name="pref_enable_dialog_on_login" translatable="false">pref_enable_dialog_on_login</string>
+    <string name="pref_disable_dialog_on_login" translatable="false">pref_disable_dialog_on_login</string>
     <string name="prefs_web_page" translatable="false">prefs_web_page</string>
     <string name="pref_dialog_none" translatable="false">pref_dialog_none</string>
     <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>

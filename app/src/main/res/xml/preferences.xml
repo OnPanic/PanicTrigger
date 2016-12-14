@@ -7,7 +7,7 @@
         android:title="@string/trigger_methods">
 
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="@string/pref_notification_enabled"
             android:summary="@string/notification_enabled_summary"
             android:title="@string/notification_enabled" />
@@ -30,10 +30,10 @@
                 android:title="@string/login_failures_number" />
 
             <SwitchPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:dependency="@string/pref_login_action"
-                android:key="@string/pref_enable_dialog_on_login"
-                android:summary="@string/enable_dialog_on_login_summary"
+                android:key="@string/pref_disable_dialog_on_login"
+                android:summary="@string/disable_dialog_on_login_summary"
                 android:title="@string/disable_dialog_on_login" />
 
         </PreferenceCategory>

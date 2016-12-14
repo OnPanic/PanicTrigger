@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 import llanes.ezquerro.juan.panictrigger.R;
 
 public class PasswordFailsReceiver extends DeviceAdminReceiver {
-    public static Boolean triggerRipple = false;
+    public static Boolean RUN_PANIC_ACTION = false;
     private static int fails = 0;
 
     @Override
@@ -27,7 +27,7 @@ public class PasswordFailsReceiver extends DeviceAdminReceiver {
         int failuresNumber = Integer.parseInt(prefs.getString(context.getString(R.string.pref_login_failures_number), "2"));
 
         if (loginActionEnabeld && failuresNumber > 0 && fails >= failuresNumber) {
-            triggerRipple = true;
+            RUN_PANIC_ACTION = true;
         }
 
         fails = 0;

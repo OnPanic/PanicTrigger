@@ -12,7 +12,7 @@ import llanes.ezquerro.juan.panictrigger.R;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 
 public class PanicActivity extends Activity {
-    private boolean mTestRun;
+    private boolean mTestRun = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,15 @@ public class PanicActivity extends Activity {
         Intent request = getIntent();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        mTestRun = request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false)
-                || prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false);
+        mTestRun = (request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false)
+                || prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
 
         Intent confirmationMethod;
 
-        if (prefs.getBoolean(getString(R.string.pref_dialog_none), false)) {
+        boolean doNotConfirmAfterPasswordFail = (request.getBooleanExtra(PanicTriggerConstants.RUN_FROM_LOGIN, false)
+                && prefs.getBoolean(getString(R.string.pref_disable_dialog_on_login), false));
+
+        if (prefs.getBoolean(getString(R.string.pref_dialog_none), false) || doNotConfirmAfterPasswordFail) {
             runTrigger();
         } else if (prefs.getBoolean(getString(R.string.pref_dialog_swipe), false)) {
             confirmationMethod = new Intent(this, SwipeActivity.class);
@@ -38,20 +41,21 @@ public class PanicActivity extends Activity {
     }
 
     private void runTrigger() {
-
-        if (mTestRun) finish();
-
-        PanicTrigger.sendTrigger(PanicActivity.this);
+        if (mTestRun) {
+            ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
+        } else {
+            PanicTrigger.sendTrigger(PanicActivity.this);
 
         /* This app needs to stay running for a while to make sure that it sends
          * all of the Intents to Activities, Services, and BroadcastReceivers. If
          * it exits too soon, they will not get sent. */
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
-            }
-        }, 10000); // 10 second delay
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
+                }
+            }, 10000); // 10 second delay
+        }
     }
 
     @Override

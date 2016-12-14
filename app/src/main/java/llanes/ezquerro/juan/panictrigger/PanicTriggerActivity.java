@@ -15,6 +15,7 @@ import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 import llanes.ezquerro.juan.panictrigger.lockedscreen.PasswordFailsReceiver;
+import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
 
 public class PanicTriggerActivity extends PreferenceActivity {
     private SharedPreferences prefs;
@@ -79,6 +80,12 @@ public class PanicTriggerActivity extends PreferenceActivity {
                     countdownDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_dialog_swipe), false));
                 } else if (key.equals(getString(R.string.pref_countdown_enabled))) {
                     swipeDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_countdown_enabled), false));
+                } else if (key.equals(getString(R.string.pref_notification_enabled))) {
+                    PanicNotification notification = new PanicNotification(PanicTriggerActivity.this);
+                    if (sharedPreferences.getBoolean(getString(R.string.pref_notification_enabled), false))
+                        notification.show();
+                    else
+                        notification.hide();
                 }
             }
         };

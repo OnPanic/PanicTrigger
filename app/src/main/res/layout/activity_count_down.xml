@@ -34,6 +34,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:paddingTop="100dp"
         android:text="@string/tap_anywhere_to_cancel"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/triggered_text"
