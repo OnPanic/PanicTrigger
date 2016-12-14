@@ -18,13 +18,13 @@ public class PanicActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent confirmationMethod;
+
         Intent request = getIntent();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         mTestRun = (request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false)
                 || prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
-
-        Intent confirmationMethod;
 
         boolean doNotConfirmAfterPasswordFail = (request.getBooleanExtra(PanicTriggerConstants.RUN_FROM_LOGIN, false)
                 && prefs.getBoolean(getString(R.string.pref_disable_dialog_on_login), false));
