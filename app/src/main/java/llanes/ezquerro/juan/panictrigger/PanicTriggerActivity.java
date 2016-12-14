@@ -60,6 +60,14 @@ public class PanicTriggerActivity extends PreferenceActivity {
             }
         });
 
+        PanicNotification notification = new PanicNotification(this);
+        boolean showNotification =
+                (prefs.getBoolean(getString(R.string.pref_notification_enabled), true) && !notification.isVisible());
+
+        if (showNotification) {
+            notification.show();
+        }
+
         mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

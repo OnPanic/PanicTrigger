@@ -6,11 +6,22 @@
         android:summary="@string/trigger_methods_summary"
         android:title="@string/trigger_methods">
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/pref_notification_enabled"
-            android:summary="@string/notification_enabled_summary"
-            android:title="@string/notification_enabled" />
+        <PreferenceCategory android:title="@string/home_screen">
+
+            <SwitchPreference
+                android:defaultValue="true"
+                android:disableDependentsState="true"
+                android:key="@string/pref_notification_enabled"
+                android:summary="@string/notification_enabled_summary"
+                android:title="@string/notification_enabled" />
+
+            <Preference
+                android:defaultValue="false"
+                android:dependency="@string/pref_notification_enabled"
+                android:key="@string/pref_consider_widget"
+                android:title="@string/consider_widget" />
+
+        </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/locked_device">
 
@@ -100,7 +111,8 @@
 
         <Preference
             android:key="@string/pref_run_test"
-            android:title="@string/action_test_run" />
+            android:summary="@string/action_test_confirmation_summary"
+            android:title="@string/action_test_confirmation" />
 
     </PreferenceScreen>
 

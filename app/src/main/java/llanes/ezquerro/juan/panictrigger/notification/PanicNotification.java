@@ -12,6 +12,7 @@ import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 
 public class PanicNotification {
     public static final int PANIC_NOTIFICATION_ID = 0xbadc0d3;
+    private static boolean IS_VISIBLE = false;
 
     private Context mContext;
     private NotificationManager mNotificationManager;
@@ -42,9 +43,15 @@ public class PanicNotification {
                 .build();
 
         mNotificationManager.notify(PANIC_NOTIFICATION_ID, panic);
+        IS_VISIBLE = true;
     }
 
     public void hide() {
         mNotificationManager.cancel(PANIC_NOTIFICATION_ID);
+        IS_VISIBLE = false;
+    }
+
+    public boolean isVisible() {
+        return IS_VISIBLE;
     }
 }
