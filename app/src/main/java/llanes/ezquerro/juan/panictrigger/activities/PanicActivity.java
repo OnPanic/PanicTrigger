@@ -61,9 +61,10 @@ public class PanicActivity extends Activity {
     @Override
     protected void onActivityResult(int request, int response, Intent data) {
         super.onActivityResult(request, response, data);
-        if (response == Activity.RESULT_OK)
+        if (response == Activity.RESULT_OK) {
             runTrigger();
-        else
-            finish();
+        } else {
+            ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
+        }
     }
 }
