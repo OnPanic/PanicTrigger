@@ -19,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ReceiversActivity"
             android:launchMode="singleTask"
@@ -28,20 +27,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PanicTriggerActivity" />
         </activity>
-
         <activity
             android:name=".activities.PanicActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".activities.SwipeActivity"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".activities.CountDownActivity"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".activities.ExitActivity"
             android:theme="@android:style/Theme.NoDisplay" />
@@ -60,7 +55,6 @@
                 <action android:name="android.app.action.ACTION_PASSWORD_SUCCEEDED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receivers.ScreenOnReceiver"
             android:enabled="true">
@@ -68,12 +62,20 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".receivers.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".ui.PanicWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/panic_widget_info" />
+        </receiver>
     </application>
+
 </manifest>
