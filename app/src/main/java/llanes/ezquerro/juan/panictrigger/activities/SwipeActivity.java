@@ -109,7 +109,8 @@ public class SwipeActivity extends Activity implements OnTouchListener {
                     } else {
                         Rect symbolRect = new Rect();
                         if (mPanicSwipeButton.getGlobalVisibleRect(symbolRect)) {
-                            yMaxTranslation = mArrowRect.bottom - symbolRect.bottom;
+                            yMaxTranslation =
+                                    (mArrowRect.top - symbolRect.bottom) + ((mArrowRect.bottom - mArrowRect.top) / 2);
                         }
                     }
                     break;
