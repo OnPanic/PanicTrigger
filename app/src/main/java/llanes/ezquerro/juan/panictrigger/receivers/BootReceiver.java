@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.receiver;
+package llanes.ezquerro.juan.panictrigger.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

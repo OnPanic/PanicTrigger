@@ -14,8 +14,8 @@ import android.preference.SwitchPreference;
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
-import llanes.ezquerro.juan.panictrigger.lockedscreen.PasswordFailsReceiver;
 import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
+import llanes.ezquerro.juan.panictrigger.receivers.PasswordFailsReceiver;
 
 public class PanicTriggerActivity extends PreferenceActivity {
     private SharedPreferences prefs;

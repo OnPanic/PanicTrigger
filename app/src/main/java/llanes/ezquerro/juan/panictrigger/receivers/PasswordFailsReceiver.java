@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.lockedscreen;
+package llanes.ezquerro.juan.panictrigger.receivers;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
@@ -26,7 +26,7 @@ public class PasswordFailsReceiver extends DeviceAdminReceiver {
         boolean loginActionEnabeld = prefs.getBoolean(context.getString(R.string.pref_login_action), false);
         int failuresNumber = Integer.parseInt(prefs.getString(context.getString(R.string.pref_login_failures_number), "2"));
 
-        if (loginActionEnabeld && failuresNumber > 0 && fails >= failuresNumber) {
+        if (loginActionEnabeld && (failuresNumber > 0) && (fails >= failuresNumber)) {
             RUN_PANIC_ACTION = true;
         }
 

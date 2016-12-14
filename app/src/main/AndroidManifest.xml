@@ -47,7 +47,7 @@
             android:theme="@android:style/Theme.NoDisplay" />
 
         <receiver
-            android:name=".lockedscreen.PasswordFailsReceiver"
+            android:name=".receivers.PasswordFailsReceiver"
             android:enabled="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
@@ -62,14 +62,14 @@
         </receiver>
 
         <receiver
-            android:name=".lockedscreen.ScreenOnReceiver"
+            android:name=".receivers.ScreenOnReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.BootReceiver">
+        <receiver android:name=".receivers.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
