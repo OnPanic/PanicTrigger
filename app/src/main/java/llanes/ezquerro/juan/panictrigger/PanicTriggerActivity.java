@@ -7,17 +7,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
+import llanes.ezquerro.juan.panictrigger.delegate.AppCompatPreferenceActivity;
 import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
 import llanes.ezquerro.juan.panictrigger.receivers.PasswordFailsReceiver;
 
-public class PanicTriggerActivity extends PreferenceActivity {
+public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SharedPreferences prefs;
     private SharedPreferences.OnSharedPreferenceChangeListener mSettingsObserver;
     private DevicePolicyManager devicePolicyManager;
