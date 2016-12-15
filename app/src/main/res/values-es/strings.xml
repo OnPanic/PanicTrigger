@@ -16,10 +16,8 @@
     <string name="disable_dialog_on_login">Inhabilitar la confirmación al iniciar sesión</string>
     <string name="disable_dialog_on_login_summary">Deshabilitar el diálogo de confirmación cuando se ejecuta después del error de inicio de sesión</string>
     <string name="done">Hecho</string>
-    <string name="dry_run">Dry Run</string>
     <string name="dry_run_enabled">Activar Dry Run</string>
     <string name="dry_run_enabled_summary">Ejecutar en modo de prueba para depurar el comportamiento del disparador</string>
-    <string name="dry_run_summary">Opciones para probar de forma segura el comportamiento de la aplicación</string>
     <string name="edit">Editar</string>
     <string name="got_it">Lo tengo</string>
     <string name="locked_device">Dispositivo bloqueado</string>
@@ -46,4 +44,5 @@
     <string name="web_page_summary">Visite la página del proyecto para obtener instrucciones detalladas de configuración</string>
     <string name="consider_widget">Considere agregar un widget a la pantalla de inicio</string>
     <string name="home_screen">Pantalla de inicio</string>
+    <string name="debug">Depuración</string>
 </resources>

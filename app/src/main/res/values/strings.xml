@@ -6,7 +6,6 @@
     <string name="responders">Responder applications</string>
     <string name="responders_summary">Manage the applications who can respond to the trigger</string>
     <string name="dry_run">Dry Run</string>
-    <string name="dry_run_summary">Options for safely test the behaviour of the app</string>
     <string name="swipe_down_to_trigger">Swipe down to trigger</string>
     <string name="release_to_confirm">Release to confirm</string>
     <string name="tap_anywhere_to_cancel">Tap anywhere to cancel</string>
@@ -45,6 +44,7 @@
     <string name="panic_notification_content">Click for trigger</string>
     <string name="consider_widget">Consider adding a widget to the home screen</string>
     <string name="home_screen">Home screen</string>
+    <string name="debug">Debug</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>

@@ -49,6 +49,16 @@
 
         </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/debug">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="@string/pref_dry_run_enabled"
+                android:summary="@string/dry_run_enabled_summary"
+                android:title="@string/dry_run_enabled" />
+
+        </PreferenceCategory>
+
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -90,30 +100,20 @@
                 android:title="@string/countdown_seconds" />
         </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/debug">
+
+            <Preference
+                android:key="@string/pref_run_test"
+                android:summary="@string/action_test_confirmation_summary"
+                android:title="@string/action_test_confirmation" />
+
+        </PreferenceCategory>
+
     </PreferenceScreen>
 
     <Preference
         android:key="@string/pref_app_listeners"
         android:summary="@string/responders_summary"
         android:title="@string/responders" />
-
-    <PreferenceScreen
-        android:key="prefscreen_debug"
-        android:persistent="false"
-        android:summary="@string/dry_run_summary"
-        android:title="@string/dry_run">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/pref_dry_run_enabled"
-            android:summary="@string/dry_run_enabled_summary"
-            android:title="@string/dry_run_enabled" />
-
-        <Preference
-            android:key="@string/pref_run_test"
-            android:summary="@string/action_test_confirmation_summary"
-            android:title="@string/action_test_confirmation" />
-
-    </PreferenceScreen>
 
 </PreferenceScreen>
