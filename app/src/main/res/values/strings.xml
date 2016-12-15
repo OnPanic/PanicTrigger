@@ -23,7 +23,7 @@
     <string name="confirmation_dialog">Confirmation dialog</string>
     <string name="confirmation_dialog_summary">Configure the confirmation method</string>
     <string name="trigger_methods">Trigger mehods</string>
-    <string name="trigger_methods_summary">Configure when trigger a panic request</string>
+    <string name="trigger_methods_summary">Configure how trigger a panic request</string>
     <string name="notification_enabled">Persistent notification</string>
     <string name="notification_enabled_summary">Trigger a panic signal clicking on a persistent notification</string>
     <string name="dry_run_enabled">Enable Dry Run</string>
@@ -45,6 +45,13 @@
     <string name="consider_widget">Consider adding a widget to the home screen</string>
     <string name="home_screen">Home screen</string>
     <string name="debug">Debug</string>
+    <string name="runned_notification">Notify run complete</string>
+    <string name="runned_notification_summary">Shows a notification after a trigger run</string>
+    <string name="runned_notification_title">Panic trigger runned</string>
+    <string name="runned_notification_content">Hope you are ok :)</string>
+    <string name="runned_test_notification_content">This was only a test</string>
+    <string name="runned_test_notification_title">Panic Test</string>
+    <string name="notification">Notification</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
@@ -59,4 +66,5 @@
     <string name="pref_dialog_none" translatable="false">pref_dialog_none</string>
     <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>
     <string name="pref_consider_widget" translatable="false">pref_consider_widget</string>
+    <string name="pref_runned_notification" translatable="false">pref_runned_notification</string>
 </resources>

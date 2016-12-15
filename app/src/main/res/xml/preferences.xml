@@ -49,6 +49,14 @@
 
         </PreferenceCategory>
 
+        <PreferenceCategory android:title="@string/notification">
+            <SwitchPreference
+                android:defaultValue="true"
+                android:key="@string/pref_runned_notification"
+                android:summary="@string/runned_notification_summary"
+                android:title="@string/runned_notification" />
+        </PreferenceCategory>
+
         <PreferenceCategory android:title="@string/debug">
 
             <SwitchPreference

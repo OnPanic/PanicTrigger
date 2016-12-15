@@ -10,9 +10,11 @@ import android.preference.PreferenceManager;
 import info.guardianproject.panic.PanicTrigger;
 import llanes.ezquerro.juan.panictrigger.R;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
+import llanes.ezquerro.juan.panictrigger.notification.TriggerNotification;
 
 public class PanicActivity extends Activity {
     private boolean mTestRun = false;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ public class PanicActivity extends Activity {
         Intent confirmationMethod;
 
         Intent request = getIntent();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         mTestRun = (request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false)
                 || prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
@@ -41,6 +43,11 @@ public class PanicActivity extends Activity {
     }
 
     private void runTrigger() {
+        if (prefs.getBoolean(getString(R.string.pref_runned_notification), true)) {
+            TriggerNotification notification = new TriggerNotification(getApplicationContext());
+            notification.show(mTestRun);
+        }
+
         if (mTestRun) {
             ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
         } else {

@@ -39,10 +39,16 @@
     <string name="swipe">Deslizar</string>
     <string name="tap_anywhere_to_cancel">Toca en cualquier lugar para cancelar</string>
     <string name="trigger_methods">Métodos de disparo</string>
-    <string name="trigger_methods_summary">Configurar cuando se activa una solicitud de pánico</string>
+    <string name="trigger_methods_summary">Configurar como se activa una solicitud de pánico</string>
     <string name="web_page">Página del proyecto</string>
     <string name="web_page_summary">Visite la página del proyecto para obtener instrucciones detalladas de configuración</string>
     <string name="consider_widget">Considere agregar un widget a la pantalla de inicio</string>
     <string name="home_screen">Pantalla de inicio</string>
     <string name="debug">Depuración</string>
+    <string name="runned_notification">Notificar ejecucion completada</string>
+    <string name="runned_notification_content">Espero que estés bien :)</string>
+    <string name="runned_notification_summary">Muestra una notificación después de una ejecución</string>
+    <string name="runned_notification_title">Aviso de panico enviado</string>
+    <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
+    <string name="notification">Notificación</string>
 </resources>
