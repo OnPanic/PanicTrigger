@@ -20,7 +20,6 @@
     <string name="dry_run_enabled_summary">Ejecutar en modo de prueba para depurar el comportamiento del disparador</string>
     <string name="edit">Editar</string>
     <string name="got_it">Lo tengo</string>
-    <string name="locked_device">Dispositivo bloqueado</string>
     <string name="login_action">Fallos de inicio de sesión</string>
     <string name="login_failures_number">Número de fallos</string>
     <string name="monitor_login_failues">Monitorizar los errores de inicio de sesión</string>
@@ -38,17 +37,14 @@
     <string name="swipe_down_to_trigger">Deslizar hacia abajo para activar</string>
     <string name="swipe">Deslizar</string>
     <string name="tap_anywhere_to_cancel">Toca en cualquier lugar para cancelar</string>
-    <string name="trigger_methods">Métodos de disparo</string>
-    <string name="trigger_methods_summary">Configurar como se activa una solicitud de pánico</string>
     <string name="web_page">Página del proyecto</string>
     <string name="web_page_summary">Visite la página del proyecto para obtener instrucciones detalladas de configuración</string>
     <string name="consider_widget">Considere agregar un widget a la pantalla de inicio</string>
-    <string name="home_screen">Pantalla de inicio</string>
     <string name="debug">Depuración</string>
     <string name="runned_notification">Notificar ejecucion completada</string>
     <string name="runned_notification_content">Espero que estés bien :)</string>
     <string name="runned_notification_summary">Muestra una notificación después de una ejecución</string>
     <string name="runned_notification_title">Aviso de panico enviado</string>
     <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
-    <string name="notification">Notificación</string>
+    <string name="notifications">Notificaciones</string>
 </resources>

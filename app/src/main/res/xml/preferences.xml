@@ -1,72 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:key="prefscreen_trigger_methods"
+        android:key="prefscreen_dead_man"
         android:persistent="false"
-        android:summary="@string/trigger_methods_summary"
-        android:title="@string/trigger_methods">
+        android:summary="@string/prefscreen_dead_man_summary"
+        android:title="@string/prefscreen_dead_man_title">
 
-        <PreferenceCategory android:title="@string/home_screen">
+        <Preference
+            android:key="@string/pref_dead_man_start"
+            android:summary="@string/dead_man_start_summary"
+            android:title="@string/dead_man_start" />
 
-            <SwitchPreference
-                android:defaultValue="true"
-                android:disableDependentsState="true"
-                android:key="@string/pref_notification_enabled"
-                android:summary="@string/notification_enabled_summary"
-                android:title="@string/notification_enabled" />
+        <Preference
+            android:defaultValue="3600"
+            android:key="@string/pref_dead_man_time"
+            android:summary="@string/dead_man_time_summary"
+            android:title="@string/dead_man_time" />
 
-            <Preference
-                android:defaultValue="false"
-                android:dependency="@string/pref_notification_enabled"
-                android:key="@string/pref_consider_widget"
-                android:title="@string/consider_widget" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_dead_man_unlock_cancel"
+            android:summary="@string/dead_man_unlock_cancel_summary"
+            android:title="@string/dead_man_unlock_cancel" />
 
-        </PreferenceCategory>
+    </PreferenceScreen>
 
-        <PreferenceCategory android:title="@string/locked_device">
+    <PreferenceScreen
+        android:summary="@string/password_fails_summary"
+        android:title="@string/password_fails">
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="@string/pref_login_action"
-                android:summary="@string/pref_login_actions_summary"
-                android:title="@string/login_action" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_login_action"
+            android:summary="@string/pref_login_actions_summary"
+            android:title="@string/login_action" />
 
-            <EditTextPreference
-                android:defaultValue="2"
-                android:dependency="@string/pref_login_action"
-                android:inputType="number"
-                android:key="@string/pref_login_failures_number"
-                android:numeric="integer"
-                android:summary="@string/pref_login_failures_number_summary"
-                android:title="@string/login_failures_number" />
+        <EditTextPreference
+            android:defaultValue="2"
+            android:dependency="@string/pref_login_action"
+            android:inputType="number"
+            android:key="@string/pref_login_failures_number"
+            android:numeric="integer"
+            android:summary="@string/pref_login_failures_number_summary"
+            android:title="@string/login_failures_number" />
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:dependency="@string/pref_login_action"
-                android:key="@string/pref_disable_dialog_on_login"
-                android:summary="@string/disable_dialog_on_login_summary"
-                android:title="@string/disable_dialog_on_login" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="@string/pref_login_action"
+            android:key="@string/pref_disable_dialog_on_login"
+            android:summary="@string/disable_dialog_on_login_summary"
+            android:title="@string/disable_dialog_on_login" />
 
-        </PreferenceCategory>
+    </PreferenceScreen>
 
-        <PreferenceCategory android:title="@string/notification">
-            <SwitchPreference
-                android:defaultValue="true"
-                android:key="@string/pref_runned_notification"
-                android:summary="@string/runned_notification_summary"
-                android:title="@string/runned_notification" />
-        </PreferenceCategory>
+    <PreferenceScreen
+        android:summary="@string/notifications_summary"
+        android:title="@string/notifications">
 
-        <PreferenceCategory android:title="@string/debug">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:disableDependentsState="true"
+            android:key="@string/pref_notification_enabled"
+            android:summary="@string/notification_enabled_summary"
+            android:title="@string/notification_enabled" />
 
-            <SwitchPreference
-                android:defaultValue="false"
-                android:key="@string/pref_dry_run_enabled"
-                android:summary="@string/dry_run_enabled_summary"
-                android:title="@string/dry_run_enabled" />
+        <Preference
+            android:defaultValue="false"
+            android:dependency="@string/pref_notification_enabled"
+            android:key="@string/pref_consider_widget"
+            android:title="@string/consider_widget" />
 
-        </PreferenceCategory>
-
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_runned_notification"
+            android:summary="@string/runned_notification_summary"
+            android:title="@string/runned_notification" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -75,14 +83,14 @@
         android:summary="@string/confirmation_dialog_summary"
         android:title="@string/confirmation_dialog">
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:disableDependentsState="true"
-            android:key="@string/pref_dialog_none"
-            android:summary="@string/dialog_none_summary"
-            android:title="@string/none" />
-
         <PreferenceCategory android:title="@string/available_methods">
+
+            <SwitchPreference
+                android:defaultValue="false"
+                android:disableDependentsState="true"
+                android:key="@string/pref_dialog_none"
+                android:summary="@string/dialog_none_summary"
+                android:title="@string/none" />
 
             <SwitchPreference
                 android:defaultValue="true"
@@ -124,4 +132,13 @@
         android:summary="@string/responders_summary"
         android:title="@string/responders" />
 
+    <PreferenceCategory android:title="@string/debug">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_dry_run_enabled"
+            android:summary="@string/dry_run_enabled_summary"
+            android:title="@string/dry_run_enabled" />
+
+    </PreferenceCategory>
 </PreferenceScreen>
