@@ -11,7 +11,7 @@ import llanes.ezquerro.juan.panictrigger.R;
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 
 public class PanicNotification {
-    public static final int PANIC_NOTIFICATION_ID = 0xbadc0d3;
+    private static final int PANIC_NOTIFICATION_ID = 0xbadc0d3;
     private static boolean IS_VISIBLE = false;
 
     private Context mContext;
@@ -23,7 +23,7 @@ public class PanicNotification {
                 (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-    public void show() {
+    private Notification panic() {
         Intent trigger = new Intent(mContext, PanicActivity.class);
 
         PendingIntent click =
@@ -34,21 +34,23 @@ public class PanicNotification {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
-        Notification panic = new NotificationCompat.Builder(mContext)
+        return new NotificationCompat.Builder(mContext)
                 .setContentIntent(click)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setOngoing(true)
                 .setContentTitle(mContext.getString(R.string.panic_notification))
                 .setContentText(mContext.getString(R.string.panic_notification_content))
                 .build();
-
-        mNotificationManager.notify(PANIC_NOTIFICATION_ID, panic);
-        IS_VISIBLE = true;
     }
 
-    public void hide() {
-        mNotificationManager.cancel(PANIC_NOTIFICATION_ID);
-        IS_VISIBLE = false;
+    public void display(Boolean visible) {
+        if (visible) {
+            mNotificationManager.notify(PANIC_NOTIFICATION_ID, panic());
+            IS_VISIBLE = visible;
+        } else {
+            mNotificationManager.cancel(PANIC_NOTIFICATION_ID);
+            IS_VISIBLE = visible;
+        }
     }
 
     public boolean isVisible() {

@@ -17,7 +17,7 @@ public class BootReceiver extends BroadcastReceiver {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.getBoolean(context.getString(R.string.pref_notification_enabled), false)) {
                 PanicNotification notification = new PanicNotification(context);
-                notification.show();
+                notification.display(true);
             }
         }
     }

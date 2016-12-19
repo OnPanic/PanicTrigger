@@ -27,6 +27,7 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SwitchPreference swipeDialog;
     private SwitchPreference countdownDialog;
     private SwitchPreference loginAction;
+    private PanicNotification notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,51 +36,14 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        PanicNotification notification = new PanicNotification(this);
-        boolean showNotification =
-                (prefs.getBoolean(getString(R.string.pref_notification_enabled), true) && !notification.isVisible());
-
-        if (showNotification) {
-            notification.show();
-        }
+        notification = new PanicNotification(this);
+        notification.display(
+                (prefs.getBoolean(getString(R.string.pref_notification_enabled), true) && !notification.isVisible())
+        );
 
         setLayoutActions();
 
         setPreferencesListener();
-    }
-
-    private void setPreferencesListener() {
-        mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals(getString(R.string.pref_login_action))) {
-
-                    devicePolicyManager
-                            = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-                    deviceAdminComponentName
-                            = new ComponentName(PanicTriggerActivity.this, PasswordFailsReceiver.class);
-
-                    if (!devicePolicyManager.isAdminActive(deviceAdminComponentName)) {
-                        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-                        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdminComponentName);
-                        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.monitor_login_failues));
-                        startActivityForResult(intent, PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST);
-                    }
-                } else if (key.equals(getString(R.string.pref_dialog_swipe))) {
-                    countdownDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_dialog_swipe), false));
-                } else if (key.equals(getString(R.string.pref_countdown_enabled))) {
-                    swipeDialog.setChecked(!sharedPreferences.getBoolean(getString(R.string.pref_countdown_enabled), false));
-                } else if (key.equals(getString(R.string.pref_notification_enabled))) {
-                    PanicNotification notification = new PanicNotification(PanicTriggerActivity.this);
-                    if (sharedPreferences.getBoolean(getString(R.string.pref_notification_enabled), false))
-                        notification.show();
-                    else
-                        notification.hide();
-                }
-            }
-        };
-
-        prefs.registerOnSharedPreferenceChangeListener(mSettingsObserver);
     }
 
     private void setLayoutActions() {
@@ -107,6 +71,40 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
                 return false;
             }
         });
+    }
+
+    private void setPreferencesListener() {
+        mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if (key.equals(getString(R.string.pref_login_action))) {
+                    requestAdminPermissions();
+                } else if (key.equals(getString(R.string.pref_dialog_swipe))) {
+                    countdownDialog.setChecked(!sharedPreferences.getBoolean(key, false));
+                } else if (key.equals(getString(R.string.pref_countdown_enabled))) {
+                    swipeDialog.setChecked(!sharedPreferences.getBoolean(key, false));
+                } else if (key.equals(getString(R.string.pref_notification_enabled))) {
+                    notification.display(
+                            sharedPreferences.getBoolean(key, true));
+                }
+            }
+        };
+
+        prefs.registerOnSharedPreferenceChangeListener(mSettingsObserver);
+    }
+
+    private void requestAdminPermissions() {
+        devicePolicyManager
+                = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        deviceAdminComponentName
+                = new ComponentName(PanicTriggerActivity.this, PasswordFailsReceiver.class);
+
+        if (!devicePolicyManager.isAdminActive(deviceAdminComponentName)) {
+            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdminComponentName);
+            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, getString(R.string.monitor_login_failues));
+            startActivityForResult(intent, PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST);
+        }
     }
 
     @Override
