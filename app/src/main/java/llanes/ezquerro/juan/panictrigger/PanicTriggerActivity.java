@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
@@ -28,7 +27,6 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SwitchPreference swipeDialog;
     private SwitchPreference countdownDialog;
     private SwitchPreference loginAction;
-    private ListPreference deadTimeUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,31 +34,6 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
         addPreferencesFromResource(R.xml.preferences);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        runTest = (Preference) findPreference(getString(R.string.pref_run_test));
-        runTest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference arg0) {
-                Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
-                intent.putExtra(PanicTriggerConstants.TEST_RUN, true);
-                startActivity(intent);
-                finish();
-                return false;
-            }
-        });
-
-        loginAction = (SwitchPreference) findPreference(getString(R.string.pref_login_action));
-        swipeDialog = (SwitchPreference) findPreference(getString(R.string.pref_dialog_swipe));
-        countdownDialog = (SwitchPreference) findPreference(getString(R.string.pref_countdown_enabled));
-        showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
-        showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference arg0) {
-                Intent intent = new Intent(PanicTriggerActivity.this, ReceiversActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
 
         PanicNotification notification = new PanicNotification(this);
         boolean showNotification =
@@ -70,6 +43,12 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
             notification.show();
         }
 
+        setLayoutActions();
+
+        setPreferencesListener();
+    }
+
+    private void setPreferencesListener() {
         mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -101,7 +80,33 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
         };
 
         prefs.registerOnSharedPreferenceChangeListener(mSettingsObserver);
+    }
 
+    private void setLayoutActions() {
+        runTest = (Preference) findPreference(getString(R.string.pref_run_test));
+        runTest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference arg0) {
+                Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
+                intent.putExtra(PanicTriggerConstants.TEST_RUN, true);
+                startActivity(intent);
+                finish();
+                return false;
+            }
+        });
+
+        loginAction = (SwitchPreference) findPreference(getString(R.string.pref_login_action));
+        swipeDialog = (SwitchPreference) findPreference(getString(R.string.pref_dialog_swipe));
+        countdownDialog = (SwitchPreference) findPreference(getString(R.string.pref_countdown_enabled));
+        showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
+        showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference arg0) {
+                Intent intent = new Intent(PanicTriggerActivity.this, ReceiversActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override
