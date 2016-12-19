@@ -11,11 +11,19 @@
             android:summary="@string/dead_man_start_summary"
             android:title="@string/dead_man_start" />
 
-        <Preference
+        <ListPreference
             android:defaultValue="3600"
-            android:key="@string/pref_dead_man_time"
-            android:summary="@string/dead_man_time_summary"
-            android:title="@string/dead_man_time" />
+            android:title="@string/dead_man_time_unit_title"
+            android:entries="@array/time_unit"
+            android:entryValues="@array/time_unit_values"
+            android:key="@string/pref_dead_man_time_unit" />
+
+        <EditTextPreference
+            android:defaultValue="1"
+            android:inputType="number"
+            android:key="@string/pref_dead_man_time_amount"
+            android:numeric="integer"
+            android:title="@string/dead_man_time_amount" />
 
         <SwitchPreference
             android:defaultValue="false"

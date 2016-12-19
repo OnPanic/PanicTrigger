@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
@@ -22,11 +23,12 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener mSettingsObserver;
     private DevicePolicyManager devicePolicyManager;
     private ComponentName deviceAdminComponentName;
-    private Preference runTest = null;
-    private Preference showReceivers = null;
+    private Preference runTest;
+    private Preference showReceivers;
     private SwitchPreference swipeDialog;
     private SwitchPreference countdownDialog;
     private SwitchPreference loginAction;
+    private ListPreference deadTimeUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
