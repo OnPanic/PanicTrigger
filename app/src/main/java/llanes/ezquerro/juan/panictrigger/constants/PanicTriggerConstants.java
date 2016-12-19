@@ -7,4 +7,6 @@ public class PanicTriggerConstants {
 
     public static final String TEST_RUN = "llanes.ezquerro.juan.panictrigger.TEST_RUN";
     public static final String RUN_FROM_LOGIN = "llanes.ezquerro.juan.panictrigger.RUN_FROM_LOGIN";
+    public static final String CANCEL_DEAD_MAN = "llanes.ezquerro.juan.panictrigger.CANCEL_DEAD_MAN";
+    public static final String RUN_DEAD_MAN = "llanes.ezquerro.juan.panictrigger.RUN_DEAD_MAN";
 }

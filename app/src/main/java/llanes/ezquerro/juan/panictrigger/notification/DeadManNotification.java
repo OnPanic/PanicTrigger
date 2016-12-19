@@ -9,22 +9,24 @@ import android.support.v4.app.NotificationCompat;
 
 import llanes.ezquerro.juan.panictrigger.R;
 import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
+import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 
-public class PanicNotification {
-    private static final int PANIC_NOTIFICATION_ID = 0xbadc0d3;
+public class DeadManNotification {
+    private static final int DEAD_NOTIFICATION_ID = 0xdead;
     private static boolean IS_VISIBLE = false;
 
     private Context mContext;
     private NotificationManager mNotificationManager;
 
-    public PanicNotification(Context context) {
+    public DeadManNotification(Context context) {
         mContext = context;
         mNotificationManager =
                 (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-    private Notification panic() {
+    private Notification dead() {
         Intent trigger = new Intent(mContext, PanicActivity.class);
+        trigger.putExtra(PanicTriggerConstants.CANCEL_DEAD_MAN, true);
 
         PendingIntent click =
                 PendingIntent.getActivity(
@@ -38,8 +40,8 @@ public class PanicNotification {
                 .setContentIntent(click)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setOngoing(true)
-                .setContentTitle(mContext.getString(R.string.panic_notification))
-                .setContentText(mContext.getString(R.string.panic_notification_content))
+                .setContentTitle(mContext.getString(R.string.dead_man_notification))
+                .setContentText(mContext.getString(R.string.dead_man_notification_content))
                 .build();
     }
 
@@ -47,13 +49,9 @@ public class PanicNotification {
         IS_VISIBLE = visible;
 
         if (IS_VISIBLE) {
-            mNotificationManager.notify(PANIC_NOTIFICATION_ID, panic());
+            mNotificationManager.notify(DEAD_NOTIFICATION_ID, dead());
         } else {
-            mNotificationManager.cancel(PANIC_NOTIFICATION_ID);
+            mNotificationManager.cancel(DEAD_NOTIFICATION_ID);
         }
-    }
-
-    public boolean isVisible() {
-        return IS_VISIBLE;
     }
 }

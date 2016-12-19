@@ -1,11 +1,15 @@
 package llanes.ezquerro.juan.panictrigger;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
@@ -14,6 +18,7 @@ import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
 import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
 import llanes.ezquerro.juan.panictrigger.delegate.AppCompatPreferenceActivity;
+import llanes.ezquerro.juan.panictrigger.notification.DeadManNotification;
 import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
 import llanes.ezquerro.juan.panictrigger.receivers.PasswordFailsReceiver;
 
@@ -28,6 +33,10 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SwitchPreference countdownDialog;
     private SwitchPreference loginAction;
     private PanicNotification notification;
+    private Preference startDeadMan;
+    private DeadManNotification dead;
+    private ListPreference deadUnit;
+    private EditTextPreference deadAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +71,48 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
         loginAction = (SwitchPreference) findPreference(getString(R.string.pref_login_action));
         swipeDialog = (SwitchPreference) findPreference(getString(R.string.pref_dialog_swipe));
         countdownDialog = (SwitchPreference) findPreference(getString(R.string.pref_countdown_enabled));
+
         showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
         showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference arg0) {
                 Intent intent = new Intent(PanicTriggerActivity.this, ReceiversActivity.class);
                 startActivity(intent);
+                return false;
+            }
+        });
+
+        deadUnit = (ListPreference) findPreference(getString(R.string.pref_dead_man_time_unit));
+        int index = deadUnit.findIndexOfValue(prefs.getString(getString(R.string.pref_dead_man_time_unit), "3600"));
+        deadUnit.setSummary(index >= 0
+                ? deadUnit.getEntries()[index]
+                : null);
+
+        deadAmount = (EditTextPreference) findPreference(getString(R.string.pref_dead_man_time_amount));
+        deadAmount.setSummary(prefs.getString(getString(R.string.pref_dead_man_time_amount), "1"));
+
+        startDeadMan = (Preference) findPreference(getString(R.string.pref_dead_man_start));
+        startDeadMan.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Integer unit = Integer.parseInt(prefs.getString(getString(R.string.pref_dead_man_time_unit), "3600"));
+                Integer amount = Integer.parseInt(prefs.getString(getString(R.string.pref_dead_man_time_amount), "1"));
+
+                AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent trigger = new Intent(PanicTriggerActivity.this, PanicActivity.class);
+                trigger.putExtra(PanicTriggerConstants.RUN_DEAD_MAN, true);
+                PendingIntent panic =
+                        PendingIntent.getActivity(
+                                getApplicationContext(),
+                                0,
+                                trigger,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                manager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (unit * amount * 1000), panic);
+
+                dead = new DeadManNotification(PanicTriggerActivity.this);
+                dead.display(true);
+
                 return false;
             }
         });
@@ -86,6 +131,13 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
                 } else if (key.equals(getString(R.string.pref_notification_enabled))) {
                     notification.display(
                             sharedPreferences.getBoolean(key, true));
+                } else if (key.equals(getString(R.string.pref_dead_man_time_unit))) {
+                    int index = deadUnit.findIndexOfValue(prefs.getString(key, "3600"));
+                    deadUnit.setSummary(index >= 0
+                            ? deadUnit.getEntries()[index]
+                            : null);
+                } else if (key.equals(getString(R.string.pref_dead_man_time_amount))) {
+                    deadAmount.setSummary(prefs.getString(key, "1"));
                 }
             }
         };
