@@ -3,9 +3,9 @@ package llanes.ezquerro.juan.panictrigger.activities;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -21,9 +21,9 @@ public class CountDownActivity extends Activity {
 
     private static final String KEY_COUNT_DOWN_DONE = "keyCountDownDone";
 
-    private CountDownAsyncTask mCountDownAsyncTask;
+    private CountDownTimer mCountDownTimer;
     private TextView mCountDownNumber;
-    private int mCountDown = 0xff;
+    private long mCountDown = 0xff;
 
     // lint is failing to see that setOnSystemUiVisibilityChangeListener is wrapped in
     // if (Build.VERSION.SDK_INT >= 11).
@@ -32,12 +32,17 @@ public class CountDownActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
+        int countDownDuration = Integer.parseInt(
+                prefs.getString(getString(R.string.pref_countdown_seconds), "5")) * 1000;
 
         Window window = getWindow();
         window.setBackgroundDrawable(null);
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_count_down);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -50,13 +55,22 @@ public class CountDownActivity extends Activity {
         mCountDownNumber = (TextView) findViewById(R.id.countDownNumber);
         mCountDownNumber.setTextSize(((float) scale) / 5);
 
-        mCountDownAsyncTask = new CountDownAsyncTask();
+        mCountDownTimer = new CountDownTimer(countDownDuration, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                mCountDown = millisUntilFinished / 1000;
+                mCountDownNumber.setText(String.valueOf(mCountDown));
+            }
+
+            public void onFinish() {
+                done();
+            }
+        };
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_COUNT_DOWN_DONE, false)) {
             done();
         } else {
-            mCountDownAsyncTask.execute(
-                    Integer.parseInt(prefs.getString(getString(R.string.pref_countdown_seconds), "5")));
+            mCountDownTimer.start();
         }
 
         RelativeLayout frameRoot = (RelativeLayout) findViewById(R.id.frameRoot);
@@ -95,12 +109,12 @@ public class CountDownActivity extends Activity {
         outState.putBoolean(KEY_COUNT_DOWN_DONE, mCountDown == 0);
         if (mCountDown > 0) {
             // cancel the countdown, it'll get restarted when the Activity comes back
-            mCountDownAsyncTask.cancel(true);
+            mCountDownTimer.cancel();
         }
     }
 
     private void cancel() {
-        mCountDownAsyncTask.cancel(true);
+        mCountDownTimer.cancel();
         setResult(Activity.RESULT_CANCELED);
         finish();
     }
@@ -108,41 +122,5 @@ public class CountDownActivity extends Activity {
     private void done() {
         setResult(Activity.RESULT_OK);
         finish();
-    }
-
-    private class CountDownAsyncTask extends AsyncTask<Integer, Integer, Void> {
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            mCountDown = values[0];
-            if (values[0] > 0) {
-                mCountDownNumber.setText(String.valueOf(values[0]));
-            } else {
-                done();
-            }
-        }
-
-        @Override
-        protected Void doInBackground(Integer... count) {
-            try {
-                int countdown = count[0];
-                while (countdown >= 0) {
-                    publishProgress(countdown);
-                    countdown--;
-                    Thread.sleep(1000);
-                    if (isCancelled()) {
-                        break;
-                    }
-                }
-            } catch (InterruptedException e) {
-                // Silent block
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
     }
 }
