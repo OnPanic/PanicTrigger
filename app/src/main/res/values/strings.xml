@@ -51,18 +51,13 @@
     <string name="runned_test_notification_title">Panic Test</string>
     <string name="notifications">Notifications</string>
     <string name="notifications_summary">Configure which notifications are displayed</string>
-    <string name="prefscreen_dead_man_title">Dead Man\'s Trigger</string>
-    <string name="dead_man_notification">Dead Man\'s</string>
-    <string name="dead_man_notification_content">Click for cancel the scheduled trigger</string>
     <string name="prefscreen_dead_man_summary">Schedule the execution of a panic trigger after a specified time</string>
-    <string name="dead_man_start">Start Dead Man\'s</string>
-    <string name="dead_man_start_summary">Start the Dead Man\'s countdown, a notification will be displayed</string>
-    <string name="dead_man_unlock_cancel">Cancel after unlock</string>
-    <string name="dead_man_unlock_cancel_summary">Dead Man\'s countdown will be cancelled after device unlock</string>
     <string name="btn_okay">Okay</string>
     <string name="btn_cancel">Cancel</string>
-    <string name="dead_man_time_unit_title">Time Unit</string>
     <string name="dead_man_time_amount">Time Amount</string>
+    <string name="loading">Loading…</string>
+    <string name="add_widget">Add widget</string>
+    <string name="dead_man_canceled">Dead Man\'s Trigger was canceled</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
@@ -78,8 +73,4 @@
     <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>
     <string name="pref_consider_widget" translatable="false">pref_consider_widget</string>
     <string name="pref_runned_notification" translatable="false">pref_runned_notification</string>
-    <string name="pref_dead_man_start" translatable="false">pref_dead_man_start</string>
-    <string name="pref_dead_man_unlock_cancel" translatable="false">pref_dead_man_unlock_cancel</string>
-    <string name="pref_dead_man_time_unit" translatable="false">pref_dead_man_time_unit</string>
-    <string name="pref_dead_man_time_amount" translatable="false">pref_dead_man_time_amount</string>
 </resources>

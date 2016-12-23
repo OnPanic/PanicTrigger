@@ -1,9 +1,6 @@
 package llanes.ezquerro.juan.panictrigger.activities;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +10,6 @@ import android.preference.PreferenceManager;
 import info.guardianproject.panic.PanicTrigger;
 import llanes.ezquerro.juan.panictrigger.R;
 import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
-import llanes.ezquerro.juan.panictrigger.notification.DeadManNotification;
 import llanes.ezquerro.juan.panictrigger.notification.TriggerNotification;
 
 public class PanicActivity extends Activity {
@@ -27,25 +23,6 @@ public class PanicActivity extends Activity {
         Intent confirmationMethod;
 
         Intent request = getIntent();
-
-        if (request.getBooleanExtra(PanicTriggerConstants.CANCEL_DEAD_MAN, false)) {
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Intent trigger = new Intent(getApplicationContext(), PanicActivity.class);
-            trigger.putExtra(PanicTriggerConstants.RUN_DEAD_MAN, true);
-            PendingIntent panic =
-                    PendingIntent.getActivity(
-                            getApplicationContext(),
-                            0,
-                            trigger,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-            manager.cancel(panic);
-
-            DeadManNotification notification = new DeadManNotification(getApplicationContext());
-            notification.display(false);
-
-            ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
-        }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 

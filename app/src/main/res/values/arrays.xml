@@ -5,9 +5,4 @@
         <item>Hours</item>
         <item>Days</item>
     </string-array>
-    <string-array name="time_unit_values">
-        <item>60</item>
-        <item>3600</item>
-        <item>64800</item>
-    </string-array>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="llanes.ezquerro.juan.panictrigger.activities.DeadWidgetConfigureActivity"
+    android:initialKeyguardLayout="@layout/dead_widget"
+    android:initialLayout="@layout/dead_widget"
+    android:minHeight="40dp"
+    android:minWidth="110dp"
+    android:previewImage="@drawable/icon"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

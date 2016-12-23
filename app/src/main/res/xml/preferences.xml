@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:key="prefscreen_dead_man"
-        android:persistent="false"
-        android:summary="@string/prefscreen_dead_man_summary"
-        android:title="@string/prefscreen_dead_man_title">
-
-        <Preference
-            android:key="@string/pref_dead_man_start"
-            android:summary="@string/dead_man_start_summary"
-            android:title="@string/dead_man_start" />
-
-        <ListPreference
-            android:defaultValue="3600"
-            android:title="@string/dead_man_time_unit_title"
-            android:entries="@array/time_unit"
-            android:entryValues="@array/time_unit_values"
-            android:key="@string/pref_dead_man_time_unit" />
-
-        <EditTextPreference
-            android:defaultValue="1"
-            android:inputType="number"
-            android:key="@string/pref_dead_man_time_amount"
-            android:numeric="integer"
-            android:title="@string/dead_man_time_amount" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/pref_dead_man_unlock_cancel"
-            android:summary="@string/dead_man_unlock_cancel_summary"
-            android:title="@string/dead_man_unlock_cancel" />
-
-    </PreferenceScreen>
-
-    <PreferenceScreen
         android:summary="@string/password_fails_summary"
         android:title="@string/password_fails">
 
