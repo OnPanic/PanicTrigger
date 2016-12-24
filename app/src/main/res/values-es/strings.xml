@@ -54,7 +54,7 @@
     <string name="dead_man_time_amount">Tiempo</string>
     <string name="loading">Cargando…</string>
     <string name="notifications_summary">Configurar qué notificaciones se muestran</string>
-    <string name="password_fails_summary">Se ejecuta cuando el dispositivo se desbloquea después de que falle una serie de contraseña</string>
+    <string name="password_fails_summary">Se ejecuta cuando el dispositivo se desbloquea después de que falle una serie de contraseñas</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
     <string name="password_fails">Fallos de contraseña</string>
 </resources>

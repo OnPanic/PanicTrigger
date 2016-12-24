@@ -31,7 +31,7 @@
     <string name="disable_dialog_on_login">Disable confirmation when login</string>
     <string name="disable_dialog_on_login_summary">Disable confirmation dialog when run after login failure</string>
     <string name="password_fails">Password fails</string>
-    <string name="password_fails_summary">Run when device is unlocked after a number of password fails</string>
+    <string name="password_fails_summary">Run when device is unlocked after a number of passwords fails</string>
     <string name="web_page">Project page</string>
     <string name="available_methods">Available methods</string>
     <string name="swipe">Swipe</string>
