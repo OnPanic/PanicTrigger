@@ -45,6 +45,11 @@
         <activity
             android:name=".activities.ExitActivity"
             android:theme="@android:style/Theme.NoDisplay" />
+        <activity android:name=".activities.DeadWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".receivers.PasswordFailsReceiver"
@@ -91,11 +96,6 @@
                 android:resource="@xml/dead_widget_info" />
         </receiver>
 
-        <activity android:name=".activities.DeadWidgetConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
