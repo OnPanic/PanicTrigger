@@ -47,4 +47,14 @@
     <string name="runned_notification_title">Aviso de panico enviado</string>
     <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
     <string name="notifications">Notificaciones</string>
+    <string name="add_widget">Añadir widget</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_okay">Ok</string>
+    <string name="dead_man_canceled">El disparador del hombre muerto fue cancelado</string>
+    <string name="dead_man_time_amount">Tiempo</string>
+    <string name="loading">Cargando…</string>
+    <string name="notifications_summary">Configurar qué notificaciones se muestran</string>
+    <string name="password_fails_summary">Se ejecuta cuando el dispositivo se desbloquea después de que falle una serie de contraseña</string>
+    <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
+    <string name="password_fails">Fallos de contraseña</string>
 </resources>
