@@ -1,11 +1,11 @@
-package llanes.ezquerro.juan.panictrigger.notification;
+package org.onpanic.panictrigger.notification;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
-import llanes.ezquerro.juan.panictrigger.R;
+import org.onpanic.panictrigger.R;
 
 public class TriggerNotification {
     private static final int TRIGGER_NOTIFICATION_ID = 0x0caca0;

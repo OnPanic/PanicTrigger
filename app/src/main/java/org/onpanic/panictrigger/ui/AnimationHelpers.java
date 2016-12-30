@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.ui;
+package org.onpanic.panictrigger.ui;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;

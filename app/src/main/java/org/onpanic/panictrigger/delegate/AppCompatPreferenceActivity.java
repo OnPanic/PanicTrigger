@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.delegate;
+package org.onpanic.panictrigger.delegate;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

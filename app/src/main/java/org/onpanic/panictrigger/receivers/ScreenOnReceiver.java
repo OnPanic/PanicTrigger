@@ -1,11 +1,11 @@
-package llanes.ezquerro.juan.panictrigger.receivers;
+package org.onpanic.panictrigger.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
-import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
+import org.onpanic.panictrigger.activities.PanicActivity;
+import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 
 public class ScreenOnReceiver extends BroadcastReceiver {
     public ScreenOnReceiver() {

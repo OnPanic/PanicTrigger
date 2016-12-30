@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.constants.PanicTriggerConstants;
+import org.onpanic.panictrigger.notification.TriggerNotification;
+
 import info.guardianproject.panic.PanicTrigger;
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
-import llanes.ezquerro.juan.panictrigger.notification.TriggerNotification;
 
 public class PanicActivity extends Activity {
     private boolean mTestRun = false;

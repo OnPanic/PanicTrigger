@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.app.Activity;
 import android.content.Intent;

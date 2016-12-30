@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.ui;
+package org.onpanic.panictrigger.ui;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -7,8 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.activities.PanicActivity;
 
 public class PanicWidget extends AppWidgetProvider {
 

@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -12,12 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.ui.DeadWidget;
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.ui.DeadWidget;
 
 public class DeadWidgetConfigureActivity extends Activity {
 
-    private static final String PREFS_NAME = "llanes.ezquerro.juan.panictrigger.ui.DeadWidget";
+    private static final String PREFS_NAME = "org.onpanic.panictrigger.ui.DeadWidget";
     private static final String PREF_PREFIX_KEY = "deadwidget_";
     private final Integer[] units = {60, 3600, 24800};
     private int mDeadWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;

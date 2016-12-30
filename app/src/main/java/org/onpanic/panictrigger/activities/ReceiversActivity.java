@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +19,15 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.ui.SimpleDividerItemDecoration;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import info.guardianproject.panic.Panic;
 import info.guardianproject.panic.PanicTrigger;
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.ui.SimpleDividerItemDecoration;
 
 public class ReceiversActivity extends AppCompatActivity {
 

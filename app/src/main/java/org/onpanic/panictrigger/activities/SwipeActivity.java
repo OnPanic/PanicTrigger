@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.ui.AnimationHelpers;
-import llanes.ezquerro.juan.panictrigger.ui.RippleDrawingView;
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.ui.AnimationHelpers;
+import org.onpanic.panictrigger.ui.RippleDrawingView;
 
 public class SwipeActivity extends Activity implements OnTouchListener {
 

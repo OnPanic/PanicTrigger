@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger;
+package org.onpanic.panictrigger;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -10,12 +10,12 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 
-import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
-import llanes.ezquerro.juan.panictrigger.activities.ReceiversActivity;
-import llanes.ezquerro.juan.panictrigger.constants.PanicTriggerConstants;
-import llanes.ezquerro.juan.panictrigger.delegate.AppCompatPreferenceActivity;
-import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
-import llanes.ezquerro.juan.panictrigger.receivers.PasswordFailsReceiver;
+import org.onpanic.panictrigger.activities.PanicActivity;
+import org.onpanic.panictrigger.activities.ReceiversActivity;
+import org.onpanic.panictrigger.constants.PanicTriggerConstants;
+import org.onpanic.panictrigger.delegate.AppCompatPreferenceActivity;
+import org.onpanic.panictrigger.notification.PanicNotification;
+import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
 
 public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     private SharedPreferences prefs;

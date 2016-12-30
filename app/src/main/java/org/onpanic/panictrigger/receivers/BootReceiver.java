@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.receivers;
+package org.onpanic.panictrigger.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.notification.PanicNotification;
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.notification.PanicNotification;
 
 public class BootReceiver extends BroadcastReceiver {
 

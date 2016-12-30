@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.activities;
+package org.onpanic.panictrigger.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import llanes.ezquerro.juan.panictrigger.R;
+import org.onpanic.panictrigger.R;
 
 public class CountDownActivity extends Activity {
 

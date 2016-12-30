@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.ui;
+package org.onpanic.panictrigger.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import llanes.ezquerro.juan.panictrigger.R;
+import org.onpanic.panictrigger.R;
 
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private final Drawable mDivider;

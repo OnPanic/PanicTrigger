@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.ui;
+package org.onpanic.panictrigger.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,7 +8,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
-import llanes.ezquerro.juan.panictrigger.R;
+import org.onpanic.panictrigger.R;
 
 public class RippleDrawingView extends View {
     private Paint mRippleOutsidePaint;

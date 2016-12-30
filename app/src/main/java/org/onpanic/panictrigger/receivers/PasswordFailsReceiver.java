@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.receivers;
+package org.onpanic.panictrigger.receivers;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import llanes.ezquerro.juan.panictrigger.R;
+import org.onpanic.panictrigger.R;
 
 public class PasswordFailsReceiver extends DeviceAdminReceiver {
     public static Boolean RUN_PANIC_ACTION = false;

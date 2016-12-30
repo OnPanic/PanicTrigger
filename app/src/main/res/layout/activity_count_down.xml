@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/triggered"
     android:orientation="vertical"
-    tools:context="llanes.ezquerro.juan.panictrigger.activities.CountDownActivity">
+    tools:context="org.onpanic.panictrigger.activities.CountDownActivity">
 
     <ImageView
         android:id="@+id/cancelButton"

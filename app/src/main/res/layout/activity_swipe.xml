@@ -25,7 +25,7 @@
         android:layout_centerInParent="true"
         android:paddingTop="34dp">
 
-        <llanes.ezquerro.juan.panictrigger.ui.RippleDrawingView
+        <org.onpanic.panictrigger.ui.RippleDrawingView
             android:id="@+id/ripples"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

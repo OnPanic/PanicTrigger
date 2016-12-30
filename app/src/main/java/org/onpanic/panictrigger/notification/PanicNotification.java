@@ -1,4 +1,4 @@
-package llanes.ezquerro.juan.panictrigger.notification;
+package org.onpanic.panictrigger.notification;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,8 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import llanes.ezquerro.juan.panictrigger.R;
-import llanes.ezquerro.juan.panictrigger.activities.PanicActivity;
+import org.onpanic.panictrigger.R;
+import org.onpanic.panictrigger.activities.PanicActivity;
 
 public class PanicNotification {
     private static final int PANIC_NOTIFICATION_ID = 0xbadc0d3;
