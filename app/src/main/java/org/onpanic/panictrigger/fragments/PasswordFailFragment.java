@@ -7,8 +7,6 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
 import org.onpanic.panictrigger.R;
-import org.onpanic.panictrigger.interfaces.RequestPermissions;
-
 
 public class PasswordFailFragment extends PreferenceFragment {
     private RequestPermissions requestPermissions;
@@ -54,5 +52,9 @@ public class PasswordFailFragment extends PreferenceFragment {
 
     public void adminDenied() {
         enable.setChecked(false);
+    }
+
+    public interface RequestPermissions {
+        void requestAdmin();
     }
 }

@@ -7,8 +7,6 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
 import org.onpanic.panictrigger.R;
-import org.onpanic.panictrigger.interfaces.TestConfirmation;
-
 
 public class ConfirmationsFragment extends PreferenceFragment {
     private SwitchPreference swipe;
@@ -69,5 +67,9 @@ public class ConfirmationsFragment extends PreferenceFragment {
     public void onDetach() {
         super.onDetach();
         testConfirmation = null;
+    }
+
+    public interface TestConfirmation {
+        void runTest();
     }
 }

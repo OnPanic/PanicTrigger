@@ -7,12 +7,14 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.onpanic.panictrigger.activities.PanicActivity;
@@ -20,13 +22,7 @@ import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
 import org.onpanic.panictrigger.fragments.NotificationsFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
-import org.onpanic.panictrigger.fragments.PreferencesFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
-import org.onpanic.panictrigger.interfaces.FragmentSwitch;
-import org.onpanic.panictrigger.interfaces.PanicNotificationCallbacks;
-import org.onpanic.panictrigger.interfaces.RequestConnection;
-import org.onpanic.panictrigger.interfaces.RequestPermissions;
-import org.onpanic.panictrigger.interfaces.TestConfirmation;
 import org.onpanic.panictrigger.notifications.PanicNotification;
 import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
 
@@ -34,36 +30,37 @@ import info.guardianproject.panic.Panic;
 import info.guardianproject.panic.PanicTrigger;
 
 public class PanicTriggerActivity extends AppCompatActivity implements
-        FragmentSwitch,
-        RequestConnection,
-        RequestPermissions,
-        TestConfirmation,
-        PanicNotificationCallbacks {
+        ReceiversFragment.RequestConnection,
+        PasswordFailFragment.RequestPermissions,
+        ConfirmationsFragment.TestConfirmation,
+        NotificationsFragment.PanicNotificationCallbacks,
+        NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
 
     private PasswordFailFragment passwordFailFragment;
 
-    private PanicNotification notification;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_panic_trigger);
+        setContentView(R.layout.panic_trigger_main_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getFragmentManager();
 
         // Do not overlapping fragments.
         if (savedInstanceState != null) return;
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        notification = new PanicNotification(this);
-        notification.display((prefs.getBoolean(getString(R.string.pref_notification_enabled), false)
-                && !notification.isVisible())
-        );
 
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, new ReceiversFragment())
@@ -71,55 +68,46 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void loadFragment(int id) {
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
         switch (id) {
-            case R.xml.password_preferences:
+            case R.id.trigger:
+                transaction.replace(R.id.fragment_container, new ReceiversFragment());
+                break;
+            case R.id.unlock:
                 passwordFailFragment = new PasswordFailFragment();
                 transaction.replace(R.id.fragment_container, passwordFailFragment);
                 break;
-            case R.xml.notifications_preferences:
+            case R.id.notifications:
                 transaction.replace(R.id.fragment_container, new NotificationsFragment());
                 break;
-            case R.xml.confirmation_preferences:
+            case R.id.confirmation:
                 transaction.replace(R.id.fragment_container, new ConfirmationsFragment());
+                break;
+            case R.id.receivers:
+                transaction.replace(R.id.fragment_container, new ReceiversFragment());
                 break;
         }
 
-        transaction.addToBackStack(null);
         transaction.commit();
-    }
 
-    @Override
-    public void onBackPressed() {
-        if (mFragmentManager.getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        } else {
-            mFragmentManager.popBackStack();
-        }
-    }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.panic_trigger_menu, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            mFragmentManager.beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.fragment_container, new PreferencesFragment())
-                    .commit();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -184,6 +172,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
     @Override
     public void visible(Boolean visible) {
+        PanicNotification notification = new PanicNotification(this);
         notification.display(visible);
     }
 }

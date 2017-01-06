@@ -58,7 +58,9 @@
     <string name="action_settings">Settings</string>
     <string name="click_for_setup">Click for setup</string>
     <string name="explicit_connection">Explicit connection is needed</string>
-
+    <string name="receivers">Receivers</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="pref_password_fails" translatable="false">pref_password_fails</string>
     <string name="pref_notifications" translatable="false">pref_notifications</string>

@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.onpanic.panictrigger.R;
-import org.onpanic.panictrigger.interfaces.RequestConnection;
 import org.onpanic.panictrigger.ui.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -123,6 +122,10 @@ public class ReceiversFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         requestConnection = null;
+    }
+
+    public interface RequestConnection {
+        void connectToApp(String requestPackageName, boolean connected);
     }
 
     class AppRowHolder extends RecyclerView.ViewHolder {

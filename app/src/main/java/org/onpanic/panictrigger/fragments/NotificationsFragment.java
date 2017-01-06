@@ -7,8 +7,6 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
 import org.onpanic.panictrigger.R;
-import org.onpanic.panictrigger.interfaces.PanicNotificationCallbacks;
-
 
 public class NotificationsFragment extends PreferenceFragment {
     private PanicNotificationCallbacks panicNotificationCallbacks;
@@ -48,5 +46,9 @@ public class NotificationsFragment extends PreferenceFragment {
     public void onDetach() {
         super.onDetach();
         panicNotificationCallbacks = null;
+    }
+
+    public interface PanicNotificationCallbacks {
+        void visible(Boolean visible);
     }
 }
