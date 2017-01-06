@@ -2,12 +2,13 @@ package org.onpanic.panictrigger;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
@@ -40,7 +43,8 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
-
+    private SharedPreferences prefs;
+    private DrawerLayout drawer;
     private PasswordFailFragment passwordFailFragment;
 
     @Override
@@ -50,14 +54,28 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Switch sw = new Switch(this);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                saveDryRunState(b);
+            }
+        });
+        sw.setChecked(prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
+
+        MenuItem dryRun = navigationView.getMenu().findItem(R.id.dry_run);
+        dryRun.setActionView(sw);
 
         mFragmentManager = getFragmentManager();
 
@@ -83,30 +101,41 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-
         switch (id) {
             case R.id.trigger:
-                transaction.replace(R.id.fragment_container, new PanicFragment());
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new PanicFragment())
+                        .commit();
                 break;
             case R.id.unlock:
                 passwordFailFragment = new PasswordFailFragment();
-                transaction.replace(R.id.fragment_container, passwordFailFragment);
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, passwordFailFragment)
+                        .commit();
+
                 break;
             case R.id.notifications:
-                transaction.replace(R.id.fragment_container, new NotificationsFragment());
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new NotificationsFragment())
+                        .commit();
                 break;
             case R.id.confirmation:
-                transaction.replace(R.id.fragment_container, new ConfirmationsFragment());
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ConfirmationsFragment())
+                        .commit();
                 break;
             case R.id.receivers:
-                transaction.replace(R.id.fragment_container, new ReceiversFragment());
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ReceiversFragment())
+                        .commit();
                 break;
+            case R.id.dry_run:
+                Switch sw = (Switch) item.getActionView();
+                sw.toggle();
+                saveDryRunState(sw.isChecked());
+                return true; // Do not close the drawer
         }
 
-        transaction.commit();
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
@@ -128,6 +157,12 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void saveDryRunState(boolean state) {
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean(getString(R.string.pref_dry_run_enabled), state);
+        edit.apply();
     }
 
     /*
