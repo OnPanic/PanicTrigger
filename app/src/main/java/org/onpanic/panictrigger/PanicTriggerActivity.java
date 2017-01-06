@@ -7,6 +7,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
 import org.onpanic.panictrigger.fragments.NotificationsFragment;
+import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
 import org.onpanic.panictrigger.notifications.PanicNotification;
@@ -34,6 +36,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         PasswordFailFragment.RequestPermissions,
         ConfirmationsFragment.TestConfirmation,
         NotificationsFragment.PanicNotificationCallbacks,
+        PanicFragment.OnPanicFragmentAction,
         NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager mFragmentManager;
@@ -63,7 +66,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         if (savedInstanceState != null) return;
 
         mFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, new ReceiversFragment())
+                .replace(R.id.fragment_container, new PanicFragment())
                 .commit();
     }
 
@@ -85,7 +88,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
         switch (id) {
             case R.id.trigger:
-                transaction.replace(R.id.fragment_container, new ReceiversFragment());
+                transaction.replace(R.id.fragment_container, new PanicFragment());
                 break;
             case R.id.unlock:
                 passwordFailFragment = new PasswordFailFragment();
@@ -174,5 +177,10 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     public void visible(Boolean visible) {
         PanicNotification notification = new PanicNotification(this);
         notification.display(visible);
+    }
+
+    @Override
+    public void runPanicTrigger(Uri uri) {
+
     }
 }
