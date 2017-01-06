@@ -7,7 +7,6 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -114,27 +113,6 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void connectToApp(String rowPackageName, boolean connected) {
-        Intent intent;
-        int action;
-
-        requestPackageName = rowPackageName;
-
-        if (connected) {
-            intent = new Intent(Panic.ACTION_CONNECT);
-            action = PanicTriggerConstants.CONNECT_RESULT;
-        } else {
-            intent = new Intent(Panic.ACTION_DISCONNECT);
-            action = PanicTriggerConstants.DISCONNECT_RESULT;
-        }
-
-        intent.setPackage(requestPackageName);
-
-        // TODO add TrustedIntents here
-        startActivityForResult(intent, action);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST:
@@ -151,6 +129,10 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    /*
+     * --- Fragments Callbacks ---
+     */
 
     @Override
     public void requestAdmin() {
@@ -180,7 +162,30 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void runPanicTrigger(Uri uri) {
+    public void runPanicTrigger() {
+        Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
+    @Override
+    public void connectToApp(String rowPackageName, boolean connected) {
+        Intent intent;
+        int action;
+
+        requestPackageName = rowPackageName;
+
+        if (connected) {
+            intent = new Intent(Panic.ACTION_CONNECT);
+            action = PanicTriggerConstants.CONNECT_RESULT;
+        } else {
+            intent = new Intent(Panic.ACTION_DISCONNECT);
+            action = PanicTriggerConstants.DISCONNECT_RESULT;
+        }
+
+        intent.setPackage(requestPackageName);
+
+        // TODO add TrustedIntents here
+        startActivityForResult(intent, action);
     }
 }

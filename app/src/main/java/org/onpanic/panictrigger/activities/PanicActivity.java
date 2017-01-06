@@ -36,7 +36,7 @@ public class PanicActivity extends Activity {
 
         if (prefs.getBoolean(getString(R.string.pref_dialog_none), false) || doNotConfirm) {
             runTrigger();
-        } else if (prefs.getBoolean(getString(R.string.pref_dialog_swipe), false)) {
+        } else if (prefs.getBoolean(getString(R.string.pref_dialog_swipe), true)) {
             confirmationMethod = new Intent(this, SwipeActivity.class);
             startActivityForResult(confirmationMethod, PanicTriggerConstants.SWIPE_CONFIRMATION);
         } else if (prefs.getBoolean(getString(R.string.pref_countdown_enabled), false)) {
