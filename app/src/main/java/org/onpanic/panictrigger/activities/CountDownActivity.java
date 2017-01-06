@@ -116,11 +116,19 @@ public class CountDownActivity extends Activity {
     private void cancel() {
         mCountDownTimer.cancel();
         setResult(Activity.RESULT_CANCELED);
-        finish();
+        if (Build.VERSION.SDK_INT >= 21) {
+            finishAndRemoveTask();
+        } else {
+            finish();
+        }
     }
 
     private void done() {
         setResult(Activity.RESULT_OK);
-        finish();
+        if (Build.VERSION.SDK_INT >= 21) {
+            finishAndRemoveTask();
+        } else {
+            finish();
+        }
     }
 }

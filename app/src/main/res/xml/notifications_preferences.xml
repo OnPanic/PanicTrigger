@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:disableDependentsState="true"
+        android:key="@string/pref_notification_enabled"
+        android:summary="@string/notification_enabled_summary"
+        android:title="@string/notification_enabled" />
+
+    <Preference
+        android:defaultValue="false"
+        android:dependency="@string/pref_notification_enabled"
+        android:key="@string/pref_consider_widget"
+        android:title="@string/consider_widget" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/pref_runned_notification"
+        android:summary="@string/runned_notification_summary"
+        android:title="@string/runned_notification" />
+</PreferenceScreen>

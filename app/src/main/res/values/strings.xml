@@ -3,14 +3,11 @@
     <string name="action_trigger">Trigger!</string>
     <string name="action_test_confirmation">Confirmation method test</string>
     <string name="action_test_confirmation_summary">Test the confirmation dialog without trigger the panic signal</string>
-    <string name="responders">Responder applications</string>
-    <string name="responders_summary">Manage the applications who can respond to the trigger</string>
     <string name="dry_run">Dry Run</string>
     <string name="swipe_down_to_trigger">Swipe down to trigger</string>
     <string name="release_to_confirm">Release to confirm</string>
     <string name="tap_anywhere_to_cancel">Tap anywhere to cancel</string>
     <string name="done">Done</string>
-    <string name="edit">Edit</string>
     <string name="got_it">Got it</string>
     <string name="app_hides">App hides when triggered</string>
     <string name="pref_countdown_enabled_summary">Select if a countdown should be fired before trigger the signal</string>
@@ -58,11 +55,18 @@
     <string name="loading">Loading…</string>
     <string name="add_widget">Add widget</string>
     <string name="dead_man_canceled">Dead Man\'s Trigger was canceled</string>
+    <string name="action_settings">Settings</string>
+    <string name="click_for_setup">Click for setup</string>
+    <string name="explicit_connection">Explicit connection is needed</string>
+
+
+    <string name="pref_password_fails" translatable="false">pref_password_fails</string>
+    <string name="pref_notifications" translatable="false">pref_notifications</string>
+    <string name="pref_confirmations" translatable="false">pref_confirmations</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
     <string name="pref_login_action" translatable="false">pref_login_action</string>
-    <string name="pref_app_listeners" translatable="false">pref_app_listeners</string>
     <string name="pref_notification_enabled" translatable="false">pref_notification_enabled</string>
     <string name="pref_dry_run_enabled" translatable="false">pref_dry_run_enabled</string>
     <string name="pref_run_test" translatable="false">pref_run_test</string>

@@ -3,6 +3,7 @@ package org.onpanic.panictrigger.activities;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,13 +58,11 @@ public class SwipeActivity extends Activity implements OnTouchListener {
         mPanicSwipeButton = (ImageView) findViewById(R.id.panic_swipe_button);
         mPanicSwipeButton.setOnTouchListener(this);
 
-        final Activity activity = this;
         View btnCancel = findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setResult(Activity.RESULT_CANCELED);
-                activity.finish();
+                finishActivity(Activity.RESULT_CANCELED);
             }
         });
 
@@ -86,9 +85,8 @@ public class SwipeActivity extends Activity implements OnTouchListener {
     @Override
     protected void onPause() {
         super.onPause();
-        setResult(Activity.RESULT_CANCELED);
         // if the user navigates away, reset the trigger process
-        finish();
+        finishConfirmation(Activity.RESULT_CANCELED);
     }
 
     @Override
@@ -121,8 +119,7 @@ public class SwipeActivity extends Activity implements OnTouchListener {
                     mRipples.invalidate();
 
                     if (mReleaseWillTrigger) {
-                        setResult(Activity.RESULT_OK);
-                        finish();
+                        finishConfirmation(Activity.RESULT_OK);
                     } else {
                         AnimationHelpers.translateY(mPanicSwipeButton, yCurrentTranslation, 0, 200);
                         mFrameRoot.setBackgroundColor(mColorRipple);
@@ -167,5 +164,15 @@ public class SwipeActivity extends Activity implements OnTouchListener {
             return true;
         }
         return false;
+    }
+
+    private void finishConfirmation(int result) {
+        setResult(result);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            finishAndRemoveTask();
+        } else {
+            finish();
+        }
     }
 }
