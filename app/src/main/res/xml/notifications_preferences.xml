@@ -7,12 +7,6 @@
         android:summary="@string/notification_enabled_summary"
         android:title="@string/notification_enabled" />
 
-    <Preference
-        android:defaultValue="false"
-        android:dependency="@string/pref_notification_enabled"
-        android:key="@string/pref_consider_widget"
-        android:title="@string/consider_widget" />
-
     <SwitchPreference
         android:defaultValue="true"
         android:key="@string/pref_runned_notification"

@@ -19,7 +19,7 @@
     <string name="monitor_login_failues">Monitor login failures</string>
     <string name="confirmation_dialog">Confirmation dialog</string>
     <string name="confirmation_dialog_summary">Configure the confirmation method</string>
-    <string name="notification_enabled">Persistent notification</string>
+    <string name="notification_enabled">Run from notification</string>
     <string name="notification_enabled_summary">Trigger a panic signal clicking on a persistent notification</string>
     <string name="dry_run_enabled">Enable Dry Run</string>
     <string name="dry_run_enabled_summary">Run on test mode for debug the trigger behaviour</string>
@@ -38,7 +38,6 @@
     <string name="web_page_summary">Visit the project page for detailed configuration instructions</string>
     <string name="panic_notification">Panic</string>
     <string name="panic_notification_content">Click for trigger</string>
-    <string name="consider_widget">Consider adding a widget to the home screen</string>
     <string name="debug">Debug</string>
     <string name="runned_notification">Notify run complete</string>
     <string name="runned_notification_summary">Shows a notification after a trigger run</string>
@@ -77,6 +76,5 @@
     <string name="prefs_web_page" translatable="false">prefs_web_page</string>
     <string name="pref_dialog_none" translatable="false">pref_dialog_none</string>
     <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>
-    <string name="pref_consider_widget" translatable="false">pref_consider_widget</string>
     <string name="pref_runned_notification" translatable="false">pref_runned_notification</string>
 </resources>
