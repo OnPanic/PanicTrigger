@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 import org.onpanic.panictrigger.R;
 
-public class DeadManFragment extends Fragment {
+public class DeadManFragmentStart extends Fragment {
 
     private final Integer[] units = {60, 3600, 24800};
 
@@ -22,7 +22,7 @@ public class DeadManFragment extends Fragment {
     private EditText mDeadAmountText;
     private DeadManStartCallBack deadManStartCallBack;
 
-    public DeadManFragment() {
+    public DeadManFragmentStart() {
     }
 
     @Override

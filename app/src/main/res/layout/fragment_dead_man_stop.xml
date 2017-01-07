@@ -9,52 +9,23 @@
 
 
     <TextView
+        android:id="@+id/deadman_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:text="@string/prefscreen_dead_man_summary"
         android:textAlignment="center"
         android:textColor="@color/triggered_text"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/dead_time_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-
-        <Spinner
-            android:id="@+id/dead_time_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
 
     <ImageButton
-        android:id="@+id/run_deadman"
+        android:id="@+id/stop_deadman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
         android:background="@color/ripple"
-        android:contentDescription="@string/start_dead_man"
+        android:contentDescription="@string/stop_dead_man"
         android:cropToPadding="false"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
@@ -63,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/start_dead_man"
+        android:text="@string/stop_dead_man"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/triggered_text"

@@ -1,12 +1,16 @@
 package org.onpanic.panictrigger;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -23,13 +27,17 @@ import android.widget.Switch;
 import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
-import org.onpanic.panictrigger.fragments.DeadManFragment;
+import org.onpanic.panictrigger.fragments.DeadManFragmentStart;
+import org.onpanic.panictrigger.fragments.DeadManFragmentStop;
 import org.onpanic.panictrigger.fragments.NotificationsFragment;
 import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
 import org.onpanic.panictrigger.notifications.PanicNotification;
+import org.onpanic.panictrigger.receivers.DeadManReceiver;
 import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
+
+import java.util.UUID;
 
 import info.guardianproject.panic.Panic;
 import info.guardianproject.panic.PanicTrigger;
@@ -41,7 +49,8 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         NotificationsFragment.PanicNotificationCallbacks,
         PanicFragment.OnPanicFragmentAction,
         NavigationView.OnNavigationItemSelectedListener,
-        DeadManFragment.DeadManStartCallBack {
+        DeadManFragmentStart.DeadManStartCallBack,
+        DeadManFragmentStop.DeadManStopCallBack {
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
@@ -83,9 +92,17 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
         // Do not overlapping fragments.
         if (savedInstanceState == null) {
-            mFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, new PanicFragment())
-                    .commit();
+            if (prefs.getBoolean(getString(R.string.pref_deadman_running), false)) {
+                DeadManFragmentStop stop = new DeadManFragmentStop();
+                stop.setDeadDate(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, stop)
+                        .commit();
+            } else {
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new PanicFragment())
+                        .commit();
+            }
         }
     }
 
@@ -109,9 +126,18 @@ public class PanicTriggerActivity extends AppCompatActivity implements
                         .commit();
                 break;
             case R.id.dead_man:
-                mFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, new DeadManFragment())
-                        .commit();
+                FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+                if (prefs.getBoolean(getString(R.string.pref_deadman_running), false)) {
+                    DeadManFragmentStop stop = new DeadManFragmentStop();
+                    stop.setDeadDate(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
+                    transaction.replace(R.id.fragment_container, stop);
+                } else {
+                    transaction.replace(R.id.fragment_container, new DeadManFragmentStart());
+                }
+
+                transaction.commit();
+
                 break;
             case R.id.unlock:
                 passwordFailFragment = new PasswordFailFragment();
@@ -231,6 +257,63 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
     @Override
     public void deadManStart(Long time) {
+        String rand = UUID.randomUUID().toString();
 
+        SharedPreferences.Editor edit = prefs.edit();
+
+        edit.putBoolean(getString(R.string.pref_deadman_running), true);
+        edit.putLong(getString(R.string.pref_deadman_timestamp), time);
+        edit.putString(getString(R.string.pref_deadman_rand), rand);
+        edit.apply();
+
+        Intent trigger = new Intent(this, DeadManReceiver.class);
+        trigger.setAction(rand);
+
+        PendingIntent panic = PendingIntent.getBroadcast(
+                this,
+                0,
+                trigger,
+                0
+        );
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 19) {
+            manager.setExact(AlarmManager.RTC_WAKEUP, time, panic);
+        } else {
+            manager.set(AlarmManager.RTC_WAKEUP, time, panic);
+        }
+
+        DeadManFragmentStop stop = new DeadManFragmentStop();
+        stop.setDeadDate(time);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, stop)
+                .commit();
+    }
+
+    @Override
+    public void deadManStop() {
+        Intent trigger = new Intent(this, DeadManReceiver.class);
+        trigger.setAction(prefs.getString(getString(R.string.pref_deadman_rand), null));
+
+        PendingIntent panic = PendingIntent.getBroadcast(
+                this,
+                0,
+                trigger,
+                0
+        );
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(panic);
+
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean(getString(R.string.pref_deadman_running), false);
+        edit.putLong(getString(R.string.pref_deadman_timestamp), 0);
+        edit.putString(getString(R.string.pref_deadman_rand), null);
+        edit.apply();
+
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, new DeadManFragmentStart())
+                .commit();
     }
 }
