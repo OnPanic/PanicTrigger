@@ -9,6 +9,16 @@
 
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/deadman_date_summary"
+        android:textAlignment="center"
+        android:textColor="@color/triggered_text"
+        android:textSize="18sp" />
+
+    <TextView
         android:id="@+id/deadman_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

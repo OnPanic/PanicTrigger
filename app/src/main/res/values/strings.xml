@@ -47,6 +47,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="click_for_trigger">Click on Panic icon</string>
+    <string name="deadman_date_summary">Dead Man\'s Trigger is scheduled for:</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>

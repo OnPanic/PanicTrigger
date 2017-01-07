@@ -7,6 +7,6 @@
     <color name="gray">#FFDDDDDD</color>
 
     <!-- other colors -->
-    <color name="triggered_text">#FF0091EA</color>
+    <color name="triggered_text">#0083d4</color>
     <color name="ripple_outside">#FF2AB0EE</color>
 </resources>
