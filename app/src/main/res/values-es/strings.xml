@@ -35,8 +35,6 @@
     <string name="runned_notification_title">Aviso de panico enviado</string>
     <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
     <string name="notifications">Notificaciones</string>
-    <string name="dead_man_canceled">El disparador del hombre muerto fue cancelado</string>
-    <string name="loading">Cargando…</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
     <string name="password_fails">Fallos de contraseña</string>
 </resources>

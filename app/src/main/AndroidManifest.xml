@@ -35,11 +35,6 @@
         <activity
             android:name=".activities.ExitActivity"
             android:theme="@android:style/Theme.NoDisplay" />
-        <activity android:name=".activities.DeadWidgetConfigureActivity">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
 
         <receiver
             android:name=".receivers.PasswordFailsReceiver"
@@ -76,19 +71,10 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/panic_widget_info" />
         </receiver>
-        <receiver android:name=".ui.DeadWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/dead_widget_info" />
-        </receiver>
         <receiver
             android:name=".receivers.DeadManReceiver"
             android:enabled="false"
-            android:exported="false"></receiver>
+            android:exported="false" />
     </application>
 
 </manifest>
