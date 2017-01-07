@@ -54,6 +54,8 @@ public class DeadWidget extends AppWidgetProvider {
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.set(AlarmManager.RTC_WAKEUP, time, panic);
+
+        Toast.makeText(context, R.string.click_widget_for_discard, Toast.LENGTH_LONG).show();
     }
 
     @Override

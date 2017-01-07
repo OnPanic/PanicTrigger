@@ -38,12 +38,9 @@
     <string name="runned_test_notification_title">Panic Test</string>
     <string name="notifications">Notifications</string>
     <string name="prefscreen_dead_man_summary">Schedule the execution of a panic trigger after a specified time</string>
-    <string name="dead_man_time_amount">Time Amount</string>
     <string name="loading">Loading…</string>
-    <string name="add_widget">Add widget</string>
     <string name="dead_man_canceled">Dead Man\'s Trigger was canceled</string>
     <string name="start_dead_man">Start Dead Man\'s Trigger</string>
-    <string name="stop_dead_man">Stop Dead Man\'s Trigger</string>
     <string name="dead_man">Dead Man\'s Trigger</string>
     <string name="click_for_setup">Click for setup</string>
     <string name="explicit_connection">Explicit connection is needed</string>
@@ -51,6 +48,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="click_for_trigger">Click on Panic icon</string>
+    <string name="click_widget_for_discard">Click widget for stop Dead Man\'s Trigger</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
