@@ -17,9 +17,9 @@
         app:srcCompat="@drawable/ic_ripple_trigger_no_shadow" />
 
     <TextView
-        android:id="@+id/tap_anywhere_to_cancel"
+        android:id="@+id/panic_click_message"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
