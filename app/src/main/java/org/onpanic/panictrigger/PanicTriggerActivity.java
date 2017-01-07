@@ -94,7 +94,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             if (prefs.getBoolean(getString(R.string.pref_deadman_running), false)) {
                 DeadManFragmentStop stop = new DeadManFragmentStop();
-                stop.setDeadDate(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
+                stop.setDeadTime(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
                 mFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, stop)
                         .commit();
@@ -130,7 +130,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
                 if (prefs.getBoolean(getString(R.string.pref_deadman_running), false)) {
                     DeadManFragmentStop stop = new DeadManFragmentStop();
-                    stop.setDeadDate(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
+                    stop.setDeadTime(prefs.getLong(getString(R.string.pref_deadman_timestamp), 0));
                     transaction.replace(R.id.fragment_container, stop);
                 } else {
                     transaction.replace(R.id.fragment_container, new DeadManFragmentStart());
@@ -285,7 +285,7 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         }
 
         DeadManFragmentStop stop = new DeadManFragmentStop();
-        stop.setDeadDate(time);
+        stop.setDeadTime(time);
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, stop)
                 .commit();

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DeadManFragmentStop extends Fragment {
-    private TextView date;
+    private Long deadDate;
 
     private DeadManStopCallBack deadManStopCallBack;
 
@@ -29,7 +29,12 @@ public class DeadManFragmentStop extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_dead_man_stop, container, false);
 
-        date = (TextView) v.findViewById(R.id.deadman_date);
+        Date timestamp = new Date(deadDate);
+        SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat day = new SimpleDateFormat("EEE", Locale.getDefault());
+
+        TextView date = (TextView) v.findViewById(R.id.deadman_date);
+        date.setText(hour.format(timestamp) + " " + day.format(timestamp));
 
         ImageButton button = (ImageButton) v.findViewById(R.id.stop_deadman);
         button.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +64,8 @@ public class DeadManFragmentStop extends Fragment {
         deadManStopCallBack = null;
     }
 
-    public void setDeadDate(Long time) {
-        Date timestamp = new Date(time);
-        SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        SimpleDateFormat day = new SimpleDateFormat("EEE", Locale.getDefault());
-        date.setText(hour.format(timestamp) + " " + day.format(timestamp));
+    public void setDeadTime(Long time) {
+        deadDate = time;
     }
 
     public interface DeadManStopCallBack {
