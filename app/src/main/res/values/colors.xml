@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- background colors -->
-    <color name="ripple">#FF00C4FF</color>
+    <color name="ripple">#00c4ff</color>
     <color name="triggered">#FFC6EBFD</color>
     <color name="gray">#FFDDDDDD</color>
 
