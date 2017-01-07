@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DeadManFragmentStop extends Fragment {
-    private Long deadDate;
+    private static Long deadDate;
 
     private DeadManStopCallBack deadManStopCallBack;
 
