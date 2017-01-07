@@ -111,7 +111,6 @@ public class PanicTriggerActivity extends AppCompatActivity implements
                 mFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, passwordFailFragment)
                         .commit();
-
                 break;
             case R.id.notifications:
                 mFragmentManager.beginTransaction()
