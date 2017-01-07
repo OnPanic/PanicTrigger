@@ -73,8 +73,8 @@
         </receiver>
         <receiver
             android:name=".receivers.DeadManReceiver"
-            android:enabled="false"
-            android:exported="false" />
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

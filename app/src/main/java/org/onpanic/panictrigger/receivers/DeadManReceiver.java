@@ -10,16 +10,20 @@ import org.onpanic.panictrigger.R;
 import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 
+import java.util.UUID;
+
 public class DeadManReceiver extends BroadcastReceiver {
     public DeadManReceiver() {
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         Boolean runFromDeadManTrigger = (prefs.getBoolean(context.getString(R.string.pref_deadman_running), false)) &&
-                (intent.getAction().equals(prefs.getString(context.getString(R.string.pref_deadman_rand), null)));
+                (action.equals(prefs.getString(context.getString(R.string.pref_deadman_rand), UUID.randomUUID().toString())));
 
         if (runFromDeadManTrigger) {
             SharedPreferences.Editor edit = prefs.edit();
