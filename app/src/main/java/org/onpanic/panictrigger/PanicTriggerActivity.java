@@ -66,13 +66,13 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         Switch sw = new Switch(this);
+        sw.setChecked(prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 saveDryRunState(b);
             }
         });
-        sw.setChecked(prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
 
         MenuItem dryRun = navigationView.getMenu().findItem(R.id.dry_run);
         dryRun.setActionView(sw);
@@ -80,16 +80,15 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         mFragmentManager = getFragmentManager();
 
         // Do not overlapping fragments.
-        if (savedInstanceState != null) return;
-
-        mFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, new PanicFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, new PanicFragment())
+                    .commit();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
