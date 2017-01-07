@@ -2,6 +2,7 @@
 <resources>
     <!-- background colors -->
     <color name="ripple">#00c4ff</color>
+    <color name="fragment_background">#00d0ea</color>
     <color name="triggered">#FFC6EBFD</color>
     <color name="gray">#FFDDDDDD</color>
 

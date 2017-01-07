@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ripple"
+    android:background="@color/fragment_background"
     android:orientation="vertical"
     tools:context="org.onpanic.panictrigger.fragments.DeadManFragmentStart">
 
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
-        android:background="@color/ripple"
+        android:background="@color/fragment_background"
         android:contentDescription="@string/start_dead_man"
         android:cropToPadding="false"
         android:paddingBottom="20dp"
