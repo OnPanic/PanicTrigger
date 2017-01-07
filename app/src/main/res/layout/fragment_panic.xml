@@ -16,4 +16,18 @@
         android:clickable="false"
         app:srcCompat="@drawable/ic_ripple_trigger_no_shadow" />
 
+    <TextView
+        android:id="@+id/tap_anywhere_to_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:paddingTop="200dp"
+        android:text="@string/click_for_trigger"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/triggered_text"
+        android:textSize="28sp" />
+
 </RelativeLayout>
