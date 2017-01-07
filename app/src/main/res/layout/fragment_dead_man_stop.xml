@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
-        android:background="@color/ripple"
+        android:background="@color/fragment_background"
         android:contentDescription="@string/stop_dead_man"
         android:cropToPadding="false"
         android:paddingBottom="20dp"
