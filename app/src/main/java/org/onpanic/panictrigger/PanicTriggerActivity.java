@@ -23,6 +23,7 @@ import android.widget.Switch;
 import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
+import org.onpanic.panictrigger.fragments.DeadManFragment;
 import org.onpanic.panictrigger.fragments.NotificationsFragment;
 import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
@@ -104,6 +105,11 @@ public class PanicTriggerActivity extends AppCompatActivity implements
             case R.id.trigger:
                 mFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, new PanicFragment())
+                        .commit();
+                break;
+            case R.id.dead_man:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new DeadManFragment())
                         .commit();
                 break;
             case R.id.unlock:

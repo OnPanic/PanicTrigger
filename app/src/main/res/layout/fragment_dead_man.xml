@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ripple"
+    android:orientation="vertical"
+    tools:context="org.onpanic.panictrigger.fragments.DeadManFragment">
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp"
+        android:id="@+id/deadManTime" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/triggered_text"
+        android:textSize="28sp"
+        android:layout_below="@+id/deadManTime"
+        android:layout_centerHorizontal="true"
+        android:textOff="@string/start_dead_man"
+        android:textOn="@string/stop_dead_man" />
+
+</RelativeLayout>

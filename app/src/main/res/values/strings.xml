@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">Panic Trigger</string>
-    <string name="action_trigger">Trigger!</string>
     <string name="action_test_confirmation">Confirmation method test</string>
     <string name="action_test_confirmation_summary">Test the confirmation dialog without trigger the panic signal</string>
     <string name="dry_run">Dry Run</string>
     <string name="swipe_down_to_trigger">Swipe down to trigger</string>
     <string name="release_to_confirm">Release to confirm</string>
     <string name="tap_anywhere_to_cancel">Tap anywhere to cancel</string>
-    <string name="done">Done</string>
-    <string name="got_it">Got it</string>
     <string name="app_hides">App hides when triggered</string>
     <string name="pref_countdown_enabled_summary">Select if a countdown should be fired before trigger the signal</string>
     <string name="countdown">Countdown</string>
@@ -18,24 +15,18 @@
     <string name="pref_login_failures_number_summary">Number of times the login must fail</string>
     <string name="monitor_login_failues">Monitor login failures</string>
     <string name="confirmation_dialog">Confirmation dialog</string>
-    <string name="confirmation_dialog_summary">Configure the confirmation method</string>
     <string name="notification_enabled">Run from notification</string>
     <string name="notification_enabled_summary">Trigger a panic signal clicking on a persistent notification</string>
-    <string name="dry_run_enabled">Enable Dry Run</string>
-    <string name="dry_run_enabled_summary">Run on test mode for debug the trigger behaviour</string>
     <string name="countdown_seconds">Countdown seconds</string>
     <string name="countdown_seconds_summary">Countdown duration</string>
     <string name="disable_dialog_on_login">Disable confirmation when login</string>
     <string name="disable_dialog_on_login_summary">Disable confirmation dialog when run after login failure</string>
     <string name="password_fails">Password fails</string>
-    <string name="password_fails_summary">Run when device is unlocked after a number of passwords fails</string>
-    <string name="web_page">Project page</string>
     <string name="available_methods">Available methods</string>
     <string name="swipe">Swipe</string>
     <string name="dialog_swipe_summary">Swipe to confirm trigger</string>
     <string name="none">None</string>
     <string name="dialog_none_summary">Disable confirmation</string>
-    <string name="web_page_summary">Visit the project page for detailed configuration instructions</string>
     <string name="panic_notification">Panic</string>
     <string name="panic_notification_content">Click for trigger</string>
     <string name="debug">Debug</string>
@@ -46,25 +37,20 @@
     <string name="runned_test_notification_content">This was only a test</string>
     <string name="runned_test_notification_title">Panic Test</string>
     <string name="notifications">Notifications</string>
-    <string name="notifications_summary">Configure which notifications are displayed</string>
     <string name="prefscreen_dead_man_summary">Schedule the execution of a panic trigger after a specified time</string>
-    <string name="btn_okay">Okay</string>
-    <string name="btn_cancel">Cancel</string>
     <string name="dead_man_time_amount">Time Amount</string>
     <string name="loading">Loading…</string>
     <string name="add_widget">Add widget</string>
     <string name="dead_man_canceled">Dead Man\'s Trigger was canceled</string>
-    <string name="action_settings">Settings</string>
+    <string name="start_dead_man">Start Dead Man\'s Trigger</string>
+    <string name="stop_dead_man">Stop Dead Man\'s Trigger</string>
+    <string name="dead_man">Dead Man\'s Trigger</string>
     <string name="click_for_setup">Click for setup</string>
     <string name="explicit_connection">Explicit connection is needed</string>
     <string name="receivers">Receivers</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="click_for_trigger">Click on Panic icon</string>
-
-    <string name="pref_password_fails" translatable="false">pref_password_fails</string>
-    <string name="pref_notifications" translatable="false">pref_notifications</string>
-    <string name="pref_confirmations" translatable="false">pref_confirmations</string>
 
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
@@ -74,7 +60,6 @@
     <string name="pref_run_test" translatable="false">pref_run_test</string>
     <string name="pref_countdown_seconds" translatable="false">pref_countdown_seconds</string>
     <string name="pref_disable_dialog_on_login" translatable="false">pref_disable_dialog_on_login</string>
-    <string name="prefs_web_page" translatable="false">prefs_web_page</string>
     <string name="pref_dialog_none" translatable="false">pref_dialog_none</string>
     <string name="pref_dialog_swipe" translatable="false">pref_dialog_swipe</string>
     <string name="pref_runned_notification" translatable="false">pref_runned_notification</string>

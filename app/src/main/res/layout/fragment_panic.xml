@@ -17,7 +17,6 @@
         app:srcCompat="@drawable/ic_ripple_trigger_no_shadow" />
 
     <TextView
-        android:id="@+id/panic_click_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

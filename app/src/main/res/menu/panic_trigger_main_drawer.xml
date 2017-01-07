@@ -6,6 +6,9 @@
             android:id="@+id/trigger"
             android:title="@string/app_name" />
         <item
+            android:id="@+id/dead_man"
+            android:title="@string/dead_man" />
+        <item
             android:id="@+id/unlock"
             android:title="@string/password_fails" />
         <item

@@ -3,11 +3,9 @@
     <string name="app_name">Panic Trigger</string>
     <string name="action_test_confirmation">Prueba del método de confirmación</string>
     <string name="action_test_confirmation_summary">Pruebe el diálogo de confirmación sin activar la señal de pánico</string>
-    <string name="action_trigger">¡Disparar!</string>
     <string name="app_hides">La aplicación se oculta cuando se dispara el panico</string>
     <string name="available_methods">Métodos disponibles</string>
     <string name="confirmation_dialog">Diálogo de confirmación</string>
-    <string name="confirmation_dialog_summary">Configurar el método de confirmación</string>
     <string name="countdown">Cuenta atrás</string>
     <string name="countdown_seconds">Segundos de cuenta atrás</string>
     <string name="countdown_seconds_summary">Duración de la cuenta atrás</string>
@@ -15,10 +13,6 @@
     <string name="dialog_swipe_summary">Deslizar para confirmar el disparador</string>
     <string name="disable_dialog_on_login">Inhabilitar la confirmación al iniciar sesión</string>
     <string name="disable_dialog_on_login_summary">Deshabilitar el diálogo de confirmación cuando se ejecuta después del error de inicio de sesión</string>
-    <string name="done">Hecho</string>
-    <string name="dry_run_enabled">Activar Dry Run</string>
-    <string name="dry_run_enabled_summary">Ejecutar en modo de prueba para depurar el comportamiento del disparador</string>
-    <string name="got_it">Lo tengo</string>
     <string name="login_action">Fallos de inicio de sesión</string>
     <string name="login_failures_number">Número de fallos</string>
     <string name="monitor_login_failues">Monitorizar los errores de inicio de sesión</string>
@@ -34,8 +28,6 @@
     <string name="swipe_down_to_trigger">Deslizar hacia abajo para activar</string>
     <string name="swipe">Deslizar</string>
     <string name="tap_anywhere_to_cancel">Toca en cualquier lugar para cancelar</string>
-    <string name="web_page">Página del proyecto</string>
-    <string name="web_page_summary">Visite la página del proyecto para obtener instrucciones detalladas de configuración</string>
     <string name="debug">Depuración</string>
     <string name="runned_notification">Notificar ejecucion completada</string>
     <string name="runned_notification_content">Espero que estés bien :)</string>
@@ -44,13 +36,9 @@
     <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
     <string name="notifications">Notificaciones</string>
     <string name="add_widget">Añadir widget</string>
-    <string name="btn_cancel">Cancelar</string>
-    <string name="btn_okay">Ok</string>
     <string name="dead_man_canceled">El disparador del hombre muerto fue cancelado</string>
     <string name="dead_man_time_amount">Tiempo</string>
     <string name="loading">Cargando…</string>
-    <string name="notifications_summary">Configurar qué notificaciones se muestran</string>
-    <string name="password_fails_summary">Se ejecuta cuando el dispositivo se desbloquea después de que falle una serie de contraseñas</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
     <string name="password_fails">Fallos de contraseña</string>
 </resources>
