@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 
 import org.onpanic.panictrigger.R;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
-import org.onpanic.panictrigger.notification.TriggerNotification;
+import org.onpanic.panictrigger.notifications.TriggerNotification;
 
 import info.guardianproject.panic.PanicTrigger;
 
@@ -36,13 +36,15 @@ public class PanicActivity extends Activity {
 
         if (prefs.getBoolean(getString(R.string.pref_dialog_none), false) || doNotConfirm) {
             runTrigger();
-        } else if (prefs.getBoolean(getString(R.string.pref_dialog_swipe), false)) {
+        } else if (prefs.getBoolean(getString(R.string.pref_dialog_swipe), true)) {
             confirmationMethod = new Intent(this, SwipeActivity.class);
             startActivityForResult(confirmationMethod, PanicTriggerConstants.SWIPE_CONFIRMATION);
         } else if (prefs.getBoolean(getString(R.string.pref_countdown_enabled), false)) {
             confirmationMethod = new Intent(this, CountDownActivity.class);
             startActivityForResult(confirmationMethod, PanicTriggerConstants.COUNTDOWN_CONFIRMATION);
         }
+
+        finish();
     }
 
     private void runTrigger() {

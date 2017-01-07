@@ -1,104 +1,177 @@
 package org.onpanic.panictrigger;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import org.onpanic.panictrigger.activities.PanicActivity;
-import org.onpanic.panictrigger.activities.ReceiversActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
-import org.onpanic.panictrigger.delegate.AppCompatPreferenceActivity;
-import org.onpanic.panictrigger.notification.PanicNotification;
+import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
+import org.onpanic.panictrigger.fragments.NotificationsFragment;
+import org.onpanic.panictrigger.fragments.PanicFragment;
+import org.onpanic.panictrigger.fragments.PasswordFailFragment;
+import org.onpanic.panictrigger.fragments.ReceiversFragment;
+import org.onpanic.panictrigger.notifications.PanicNotification;
 import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
 
-public class PanicTriggerActivity extends AppCompatPreferenceActivity {
+import info.guardianproject.panic.Panic;
+import info.guardianproject.panic.PanicTrigger;
+
+public class PanicTriggerActivity extends AppCompatActivity implements
+        ReceiversFragment.RequestConnection,
+        PasswordFailFragment.RequestPermissions,
+        ConfirmationsFragment.TestConfirmation,
+        NotificationsFragment.PanicNotificationCallbacks,
+        PanicFragment.OnPanicFragmentAction,
+        NavigationView.OnNavigationItemSelectedListener {
+
+    private FragmentManager mFragmentManager;
+    private String requestPackageName;
     private SharedPreferences prefs;
-    private SharedPreferences.OnSharedPreferenceChangeListener mSettingsObserver;
-    private DevicePolicyManager devicePolicyManager;
-    private ComponentName deviceAdminComponentName;
-    private Preference runTest;
-    private Preference showReceivers;
-    private SwitchPreference swipeDialog;
-    private SwitchPreference countdownDialog;
-    private SwitchPreference loginAction;
-    private PanicNotification notification;
+    private DrawerLayout drawer;
+    private PasswordFailFragment passwordFailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        setContentView(R.layout.panic_trigger_main_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        notification = new PanicNotification(this);
-        notification.display(
-                (prefs.getBoolean(getString(R.string.pref_notification_enabled), true) && !notification.isVisible())
-        );
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        setLayoutActions();
-
-        setPreferencesListener();
-    }
-
-    private void setLayoutActions() {
-        runTest = (Preference) findPreference(getString(R.string.pref_run_test));
-        runTest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Switch sw = new Switch(this);
+        sw.setChecked(prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public boolean onPreferenceClick(Preference arg0) {
-                Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
-                intent.putExtra(PanicTriggerConstants.TEST_RUN, true);
-                startActivity(intent);
-                finish();
-                return false;
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                saveDryRunState(b);
             }
         });
 
-        loginAction = (SwitchPreference) findPreference(getString(R.string.pref_login_action));
-        swipeDialog = (SwitchPreference) findPreference(getString(R.string.pref_dialog_swipe));
-        countdownDialog = (SwitchPreference) findPreference(getString(R.string.pref_countdown_enabled));
+        MenuItem dryRun = navigationView.getMenu().findItem(R.id.dry_run);
+        dryRun.setActionView(sw);
 
-        showReceivers = (Preference) findPreference(getString(R.string.pref_app_listeners));
-        showReceivers.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference arg0) {
-                Intent intent = new Intent(PanicTriggerActivity.this, ReceiversActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
+        mFragmentManager = getFragmentManager();
+
+        // Do not overlapping fragments.
+        if (savedInstanceState == null) {
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, new PanicFragment())
+                    .commit();
+        }
     }
 
-    private void setPreferencesListener() {
-        mSettingsObserver = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals(getString(R.string.pref_login_action))) {
-                    requestAdminPermissions();
-                } else if (key.equals(getString(R.string.pref_dialog_swipe))) {
-                    countdownDialog.setChecked(!sharedPreferences.getBoolean(key, false));
-                } else if (key.equals(getString(R.string.pref_countdown_enabled))) {
-                    swipeDialog.setChecked(!sharedPreferences.getBoolean(key, false));
-                } else if (key.equals(getString(R.string.pref_notification_enabled))) {
-                    notification.display(
-                            sharedPreferences.getBoolean(key, true));
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.trigger:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new PanicFragment())
+                        .commit();
+                break;
+            case R.id.unlock:
+                passwordFailFragment = new PasswordFailFragment();
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, passwordFailFragment)
+                        .commit();
+
+                break;
+            case R.id.notifications:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new NotificationsFragment())
+                        .commit();
+                break;
+            case R.id.confirmation:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ConfirmationsFragment())
+                        .commit();
+                break;
+            case R.id.receivers:
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, new ReceiversFragment())
+                        .commit();
+                break;
+            case R.id.dry_run:
+                Switch sw = (Switch) item.getActionView();
+                sw.toggle();
+                saveDryRunState(sw.isChecked());
+                return true; // Do not close the drawer
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST:
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    passwordFailFragment.adminDenied();
                 }
-            }
-        };
+                return;
+            case PanicTriggerConstants.CONNECT_RESULT:
+                if (resultCode == Activity.RESULT_OK) {
+                    PanicTrigger.addConnectedResponder(this, requestPackageName);
+                }
+                return;
+        }
 
-        prefs.registerOnSharedPreferenceChangeListener(mSettingsObserver);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void requestAdminPermissions() {
-        devicePolicyManager
-                = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        deviceAdminComponentName
-                = new ComponentName(PanicTriggerActivity.this, PasswordFailsReceiver.class);
+    private void saveDryRunState(boolean state) {
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean(getString(R.string.pref_dry_run_enabled), state);
+        edit.apply();
+    }
+
+    /*
+     * --- Fragments Callbacks ---
+     */
+
+    @Override
+    public void requestAdmin() {
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        ComponentName deviceAdminComponentName = new ComponentName(PanicTriggerActivity.this, PasswordFailsReceiver.class);
 
         if (!devicePolicyManager.isAdminActive(deviceAdminComponentName)) {
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -109,39 +182,44 @@ public class PanicTriggerActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        prefs.registerOnSharedPreferenceChangeListener(mSettingsObserver);
+    public void runTest() {
+        Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
+        intent.putExtra(PanicTriggerConstants.TEST_RUN, true);
+        startActivity(intent);
+        finish();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        prefs.unregisterOnSharedPreferenceChangeListener(mSettingsObserver);
+    public void visible(Boolean visible) {
+        PanicNotification notification = new PanicNotification(this);
+        notification.display(visible);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        prefs.unregisterOnSharedPreferenceChangeListener(mSettingsObserver);
+    public void runPanicTrigger() {
+        Intent intent = new Intent(PanicTriggerActivity.this, PanicActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        prefs.unregisterOnSharedPreferenceChangeListener(mSettingsObserver);
-    }
+    public void connectToApp(String rowPackageName, boolean connected) {
+        Intent intent;
+        int action;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case PanicTriggerConstants.DEVICE_ADMIN_ACTIVATION_REQUEST:
-                if (!devicePolicyManager.isAdminActive(deviceAdminComponentName)) {
-                    loginAction.setChecked(false);
-                }
-                return;
+        requestPackageName = rowPackageName;
+
+        if (connected) {
+            intent = new Intent(Panic.ACTION_CONNECT);
+            action = PanicTriggerConstants.CONNECT_RESULT;
+        } else {
+            intent = new Intent(Panic.ACTION_DISCONNECT);
+            action = PanicTriggerConstants.DISCONNECT_RESULT;
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
+        intent.setPackage(requestPackageName);
+
+        // TODO add TrustedIntents here
+        startActivityForResult(intent, action);
     }
 }

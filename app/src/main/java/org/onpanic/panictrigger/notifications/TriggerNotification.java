@@ -1,4 +1,4 @@
-package org.onpanic.panictrigger.notification;
+package org.onpanic.panictrigger.notifications;
 
 import android.app.Notification;
 import android.app.NotificationManager;

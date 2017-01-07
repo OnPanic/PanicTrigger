@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/available_methods">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:disableDependentsState="true"
+            android:key="@string/pref_dialog_none"
+            android:summary="@string/dialog_none_summary"
+            android:title="@string/none" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:dependency="@string/pref_dialog_none"
+            android:key="@string/pref_dialog_swipe"
+            android:summary="@string/dialog_swipe_summary"
+            android:title="@string/swipe" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="@string/pref_dialog_none"
+            android:key="@string/pref_countdown_enabled"
+            android:summary="@string/pref_countdown_enabled_summary"
+            android:title="@string/countdown" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:dependency="@string/pref_countdown_enabled"
+            android:inputType="number"
+            android:key="@string/pref_countdown_seconds"
+            android:numeric="integer"
+            android:summary="@string/countdown_seconds_summary"
+            android:title="@string/countdown_seconds" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/debug">
+
+        <Preference
+            android:key="@string/pref_run_test"
+            android:summary="@string/action_test_confirmation_summary"
+            android:title="@string/action_test_confirmation" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import org.onpanic.panictrigger.R;
-import org.onpanic.panictrigger.notification.PanicNotification;
+import org.onpanic.panictrigger.notifications.PanicNotification;
 
 public class BootReceiver extends BroadcastReceiver {
 
