@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -53,7 +54,12 @@ public class DeadWidget extends AppWidgetProvider {
         );
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        manager.set(AlarmManager.RTC_WAKEUP, time, panic);
+
+        if (Build.VERSION.SDK_INT >= 19) {
+            manager.setExact(AlarmManager.RTC_WAKEUP, time, panic);
+        } else {
+            manager.set(AlarmManager.RTC_WAKEUP, time, panic);
+        }
 
         Toast.makeText(context, R.string.click_widget_for_discard, Toast.LENGTH_LONG).show();
     }
