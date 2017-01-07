@@ -40,7 +40,8 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         ConfirmationsFragment.TestConfirmation,
         NotificationsFragment.PanicNotificationCallbacks,
         PanicFragment.OnPanicFragmentAction,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        DeadManFragment.DeadManStartCallBack {
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
@@ -226,5 +227,10 @@ public class PanicTriggerActivity extends AppCompatActivity implements
 
         // TODO add TrustedIntents here
         startActivityForResult(intent, action);
+    }
+
+    @Override
+    public void deadManStart(Long time) {
+
     }
 }
