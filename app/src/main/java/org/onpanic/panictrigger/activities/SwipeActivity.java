@@ -3,7 +3,6 @@ package org.onpanic.panictrigger.activities;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,7 +61,8 @@ public class SwipeActivity extends Activity implements OnTouchListener {
         btnCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishConfirmation(Activity.RESULT_CANCELED);
+                setResult(Activity.RESULT_CANCELED);
+                finish();
             }
         });
 
@@ -86,7 +86,8 @@ public class SwipeActivity extends Activity implements OnTouchListener {
     protected void onPause() {
         super.onPause();
         // if the user navigates away, reset the trigger process
-        finishConfirmation(Activity.RESULT_CANCELED);
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     @Override
@@ -119,7 +120,8 @@ public class SwipeActivity extends Activity implements OnTouchListener {
                     mRipples.invalidate();
 
                     if (mReleaseWillTrigger) {
-                        finishConfirmation(Activity.RESULT_OK);
+                        setResult(Activity.RESULT_OK);
+                        finish();
                     } else {
                         AnimationHelpers.translateY(mPanicSwipeButton, yCurrentTranslation, 0, 200);
                         mFrameRoot.setBackgroundColor(mColorRipple);
@@ -164,15 +166,5 @@ public class SwipeActivity extends Activity implements OnTouchListener {
             return true;
         }
         return false;
-    }
-
-    private void finishConfirmation(int result) {
-        setResult(result);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
     }
 }
