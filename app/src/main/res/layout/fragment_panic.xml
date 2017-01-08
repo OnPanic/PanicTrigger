@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:clickable="false"
         app:srcCompat="@drawable/ic_ripple_trigger_no_shadow" />
 
     <TextView
