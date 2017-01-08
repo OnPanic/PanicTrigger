@@ -9,6 +9,5 @@ public class PanicTriggerConstants {
 
     public static final String TEST_RUN = "org.onpanic.panictrigger.TEST_RUN";
     public static final String RUN_FROM_LOGIN = "org.onpanic.panictrigger.RUN_FROM_LOGIN";
-    public static final String CANCEL_DEAD_MAN = "org.onpanic.panictrigger.CANCEL_DEAD_MAN";
     public static final String RUN_DEAD_MAN = "org.onpanic.panictrigger.RUN_DEAD_MAN";
 }
