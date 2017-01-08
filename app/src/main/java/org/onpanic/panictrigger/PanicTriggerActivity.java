@@ -235,13 +235,13 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void connectToApp(String rowPackageName, boolean connected) {
+    public void connectToApp(String rowPackageName, boolean connect) {
         Intent intent;
         int action;
 
         requestPackageName = rowPackageName;
 
-        if (connected) {
+        if (connect) {
             intent = new Intent(Panic.ACTION_CONNECT);
             action = PanicTriggerConstants.CONNECT_RESULT;
         } else {

@@ -24,6 +24,19 @@
             android:name=".activities.PanicActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoDisplay" />
+
+        <activity
+            android:name=".activities.AppConnectManager"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="info.guardianproject.panic.action.CONNECT" />
+                <action android:name="info.guardianproject.panic.action.DISCONNECT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.SwipeActivity"
             android:launchMode="singleTask"
@@ -75,6 +88,7 @@
             android:name=".receivers.DeadManReceiver"
             android:enabled="true"
             android:exported="true" />
+
     </application>
 
 </manifest>
