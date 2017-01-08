@@ -45,6 +45,8 @@ public class PanicActivity extends Activity {
         } else if (mPrefs.getBoolean(getString(R.string.pref_countdown_enabled), false)) {
             confirmationMethod = new Intent(this, CountDownActivity.class);
             startActivityForResult(confirmationMethod, PanicTriggerConstants.COUNTDOWN_CONFIRMATION);
+        } else {
+            endRun();
         }
     }
 
@@ -55,11 +57,7 @@ public class PanicActivity extends Activity {
         }
 
         if (mTestRun) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                finishAndRemoveTask();
-            } else {
-                finish();
-            }
+            endRun();
         } else {
             PanicTrigger.sendTrigger(PanicActivity.this);
 
@@ -71,8 +69,6 @@ public class PanicActivity extends Activity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
-
                     if (Build.VERSION.SDK_INT >= 21) {
                         activity.finishAndRemoveTask();
                     } else {
@@ -89,11 +85,15 @@ public class PanicActivity extends Activity {
         if (response == Activity.RESULT_OK) {
             runTrigger();
         } else {
-            if (Build.VERSION.SDK_INT >= 21) {
-                finishAndRemoveTask();
-            } else {
-                finish();
-            }
+            endRun();
+        }
+    }
+
+    private void endRun() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            finishAndRemoveTask();
+        } else {
+            finish();
         }
     }
 }
