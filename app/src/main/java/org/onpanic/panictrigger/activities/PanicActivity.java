@@ -15,7 +15,6 @@ import info.guardianproject.panic.PanicTrigger;
 
 public class PanicActivity extends Activity {
     private boolean mTestRun = false;
-    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class PanicActivity extends Activity {
 
         Intent request = getIntent();
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PanicActivity.this);
 
         mTestRun = (request.getBooleanExtra(PanicTriggerConstants.TEST_RUN, false)
                 || prefs.getBoolean(getString(R.string.pref_dry_run_enabled), false));
@@ -44,15 +43,15 @@ public class PanicActivity extends Activity {
             startActivityForResult(confirmationMethod, PanicTriggerConstants.COUNTDOWN_CONFIRMATION);
         }
 
+        if (prefs.getBoolean(getString(R.string.pref_runned_notification), true)) {
+            TriggerNotification notification = new TriggerNotification(PanicActivity.this);
+            notification.show(mTestRun);
+        }
+
         finish();
     }
 
     private void runTrigger() {
-        if (prefs.getBoolean(getString(R.string.pref_runned_notification), true)) {
-            TriggerNotification notification = new TriggerNotification(getApplicationContext());
-            notification.show(mTestRun);
-        }
-
         if (mTestRun) {
             ExitActivity.exitAndRemoveFromRecentApps(PanicActivity.this);
         } else {

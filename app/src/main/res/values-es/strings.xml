@@ -32,7 +32,7 @@
     <string name="runned_notification">Notificar ejecucion completada</string>
     <string name="runned_notification_content">Espero que estés bien :)</string>
     <string name="runned_notification_summary">Muestra una notificación después de una ejecución</string>
-    <string name="runned_notification_title">Aviso de panico enviado</string>
+    <string name="runned_notification_title">Solicitud de pánico</string>
     <string name="runned_test_notification_content">Esto fue sólo una prueba</string>
     <string name="notifications">Notificaciones</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>

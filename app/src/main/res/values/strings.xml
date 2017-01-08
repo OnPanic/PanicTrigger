@@ -32,7 +32,7 @@
     <string name="debug">Debug</string>
     <string name="runned_notification">Notify run complete</string>
     <string name="runned_notification_summary">Shows a notification after a trigger run</string>
-    <string name="runned_notification_title">Panic trigger runned</string>
+    <string name="runned_notification_title">Panic request</string>
     <string name="runned_notification_content">Hope you are ok :)</string>
     <string name="runned_test_notification_content">This was only a test</string>
     <string name="runned_test_notification_title">Panic Test</string>
