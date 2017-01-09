@@ -6,7 +6,6 @@
     <string name="swipe_down_to_trigger">Swipe down to trigger</string>
     <string name="release_to_confirm">Release to confirm</string>
     <string name="tap_anywhere_to_cancel">Tap anywhere to cancel</string>
-    <string name="app_hides">App hides when triggered</string>
     <string name="pref_countdown_enabled_summary">Select if a countdown should be fired before trigger the signal</string>
     <string name="countdown">Countdown</string>
     <string name="login_action">Login failures</string>
@@ -41,8 +40,6 @@
     <string name="start_dead_man">Start Dead Man\'s Trigger</string>
     <string name="stop_dead_man">Stop Dead Man\'s Trigger</string>
     <string name="dead_man">Dead Man\'s Trigger</string>
-    <string name="click_for_setup">Click for setup</string>
-    <string name="explicit_connection">Explicit connection is needed</string>
     <string name="receivers">Receivers</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

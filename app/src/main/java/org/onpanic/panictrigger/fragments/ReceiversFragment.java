@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -131,7 +129,6 @@ public class ReceiversFragment extends Fragment {
     class AppRowHolder extends RecyclerView.ViewHolder {
 
         private final SwitchCompat onSwitch;
-        private final TextView editableLabel;
         private final ImageView iconView;
         private final TextView appLabelView;
         private String rowPackageName;
@@ -143,7 +140,6 @@ public class ReceiversFragment extends Fragment {
 
             iconView = (ImageView) row.findViewById(R.id.iconView);
             appLabelView = (TextView) row.findViewById(R.id.appLabel);
-            editableLabel = (TextView) row.findViewById(R.id.editableLabel);
             onSwitch = (SwitchCompat) row.findViewById(R.id.on_switch);
 
             onSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -193,24 +189,9 @@ public class ReceiversFragment extends Fragment {
             appLabelView.setText(appLabel);
 
             if (mustConnect) {
-
-                enabled = !needsConnection &&
-                        enabledResponders.contains(packageName);
-
-                if (enabled) {
-                    editableLabel.setText(R.string.click_for_setup);
-                } else {
-                    editableLabel.setText(R.string.explicit_connection);
-                }
-
+                enabled = !needsConnection && enabledResponders.contains(packageName);
             } else {
-                editableLabel.setText(R.string.app_hides);
-                editableLabel.setTypeface(null, Typeface.NORMAL);
-
                 enabled = enabledResponders.contains(packageName);
-
-                if (Build.VERSION.SDK_INT >= 14)
-                    editableLabel.setAllCaps(false);
             }
 
             onSwitch.setChecked(enabled);

@@ -3,7 +3,6 @@
     <string name="app_name">Panic Trigger</string>
     <string name="action_test_confirmation">Prueba del método de confirmación</string>
     <string name="action_test_confirmation_summary">Pruebe el diálogo de confirmación sin activar la señal de pánico</string>
-    <string name="app_hides">La aplicación se oculta cuando se dispara el panico</string>
     <string name="available_methods">Métodos disponibles</string>
     <string name="confirmation_dialog">Diálogo de confirmación</string>
     <string name="countdown">Cuenta atrás</string>
@@ -37,7 +36,6 @@
     <string name="notifications">Notificaciones</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
     <string name="password_fails">Fallos de contraseña</string>
-    <string name="click_for_setup">Haga clic para configurar</string>
     <string name="click_for_trigger">Haga clic para activar</string>
     <string name="deadman_date_summary">Dead Man\'s Trigger está programado para:</string>
 </resources>
