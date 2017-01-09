@@ -37,4 +37,7 @@
     <string name="notifications">Notificaciones</string>
     <string name="prefscreen_dead_man_summary">Programar la ejecución de un disparo de pánico después de un tiempo especificado</string>
     <string name="password_fails">Fallos de contraseña</string>
+    <string name="click_for_setup">Haga clic para configurar</string>
+    <string name="click_for_trigger">Haga clic para activar</string>
+    <string name="deadman_date_summary">Dead Man\'s Trigger está programado para:</string>
 </resources>
