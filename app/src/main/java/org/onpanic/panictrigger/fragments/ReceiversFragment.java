@@ -2,6 +2,7 @@ package org.onpanic.panictrigger.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -141,6 +142,18 @@ public class ReceiversFragment extends Fragment {
             iconView = (ImageView) row.findViewById(R.id.iconView);
             appLabelView = (TextView) row.findViewById(R.id.appLabel);
             onSwitch = (SwitchCompat) row.findViewById(R.id.on_switch);
+
+            appLabelView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent launchIntent = mContext.getPackageManager()
+                            .getLaunchIntentForPackage(rowPackageName);
+
+                    if (launchIntent != null) {
+                        startActivity(launchIntent);
+                    }
+                }
+            });
 
             onSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
