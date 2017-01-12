@@ -134,7 +134,7 @@ public class ReceiversFragment extends Fragment {
         private final TextView appLabelView;
         private String rowPackageName;
 
-        private boolean needsConnection;
+        private boolean needsConnection = false;
 
         AppRowHolder(final View row) {
             super(row);
@@ -166,7 +166,7 @@ public class ReceiversFragment extends Fragment {
                             PanicTrigger.enableResponder(mContext, rowPackageName);
                         }
                     } else {
-                        if (connectedResponders.contains(rowPackageName)) {
+                        if (respondersThatCanConnect.contains(rowPackageName)) {
                             requestConnection.connectToApp(rowPackageName, false);
                         } else {
                             PanicTrigger.disableResponder(mContext, rowPackageName);
