@@ -21,12 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.PanicActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".activities.AppConnectManager"
             android:launchMode="singleTask"
@@ -38,12 +36,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SwipeActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".activities.CountDownActivity"
             android:launchMode="singleTask"
@@ -63,7 +59,6 @@
                 <action android:name="android.app.action.ACTION_PASSWORD_SUCCEEDED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receivers.ScreenOnReceiver"
             android:enabled="true">
@@ -71,13 +66,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".receivers.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".ui.PanicWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -87,12 +80,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/panic_widget_info" />
         </receiver>
-
         <receiver
             android:name=".receivers.DeadManReceiver"
             android:enabled="true"
             android:exported="false" />
 
+        <service
+            android:name=".receivers.GeofenceTransition"
+            android:exported="false" />
     </application>
 
 </manifest>

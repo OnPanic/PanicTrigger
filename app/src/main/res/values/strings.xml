@@ -67,5 +67,6 @@
     <string name="pref_deadman_timestamp" translatable="false">pref_deadman_timestamp</string>
     <string name="pref_deadman_rand" translatable="false">pref_deadman_rand</string>
     <string name="pref_deadman_running" translatable="false">pref_deadman_running</string>
+    <string name="pref_geofence_id" translatable="false">pref_geofence_id</string>
 
 </resources>

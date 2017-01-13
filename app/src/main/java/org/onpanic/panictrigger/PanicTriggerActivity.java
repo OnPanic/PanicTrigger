@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,6 +26,10 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationServices;
+
 import org.onpanic.panictrigger.activities.PanicActivity;
 import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
@@ -36,11 +41,14 @@ import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
 import org.onpanic.panictrigger.fragments.StartGeofencesFragment;
+import org.onpanic.panictrigger.location.PositionGetter;
 import org.onpanic.panictrigger.notifications.PanicNotification;
 import org.onpanic.panictrigger.permissions.PermissionManager;
 import org.onpanic.panictrigger.receivers.DeadManReceiver;
+import org.onpanic.panictrigger.receivers.GeofenceTransition;
 import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import info.guardianproject.panic.Panic;
@@ -354,7 +362,47 @@ public class PanicTriggerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void geofenceStart(Integer distance) {
+    public void geofenceStart(final Integer distance) {
+        PositionGetter getter = new PositionGetter(this);
+        getter.get(new PositionGetter.PositionHandler() {
+            @Override
+            public void onGet(Location location) {
 
+                ArrayList<Geofence> mGeofenceList = new ArrayList<>();
+                mGeofenceList.add(new Geofence.Builder()
+                        .setRequestId(getString(R.string.pref_geofence_id))
+                        .setCircularRegion(
+                                location.getLatitude(),
+                                location.getLongitude(),
+                                distance
+                        )
+                        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                                Geofence.GEOFENCE_TRANSITION_EXIT)
+                        .build());
+
+                GeofencingRequest.Builder geo = new GeofencingRequest.Builder();
+                geo.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+                geo.addGeofences(mGeofenceList);
+
+                LocationServices.GeofencingApi.addGeofences(
+                        mGoogleApiClient,
+                        geo.build(),
+                        getGeofencePendingIntent()
+                ).setResultCallback(this);
+            }
+        });
+    }
+
+    private PendingIntent getGeofencePendingIntent() {
+        // Reuse the PendingIntent if we already have it.
+        if (mGeofencePendingIntent != null) {
+            return mGeofencePendingIntent;
+        }
+
+        Intent intent = new Intent(this, GeofenceTransition.class);
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
+        // calling addGeofences() and removeGeofences().
+        return PendingIntent.getService(this, 0, intent, PendingIntent.
+                FLAG_UPDATE_CURRENT);
     }
 }
