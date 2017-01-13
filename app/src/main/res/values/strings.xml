@@ -50,6 +50,7 @@
     <string name="activate">Activate</string>
     <string name="screen_geofences_summary">Define a perimeter to stay in, if the device exits a panic trigger wil be raised</string>
     <string name="start_geofences">Start geofence</string>
+    <string name="stop_geofence">Stop geofence</string>
 
     <string name="project_url" translatable="false">onpanic.org</string>
 

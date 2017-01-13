@@ -26,6 +26,10 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
@@ -41,6 +45,7 @@ import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
 import org.onpanic.panictrigger.fragments.StartGeofencesFragment;
+import org.onpanic.panictrigger.fragments.StopGeofencesFragment;
 import org.onpanic.panictrigger.location.PositionGetter;
 import org.onpanic.panictrigger.notifications.PanicNotification;
 import org.onpanic.panictrigger.permissions.PermissionManager;
@@ -63,13 +68,18 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         DeadManFragmentStart.DeadManStartCallBack,
         DeadManFragmentStop.DeadManStopCallBack,
-        StartGeofencesFragment.OnGeofenceStart {
+        StartGeofencesFragment.OnGeofenceStart,
+        StopGeofencesFragment.OnGeofenceStop,
+        GoogleApiClient.OnConnectionFailedListener,
+        ResultCallback {
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
     private SharedPreferences prefs;
     private DrawerLayout drawer;
     private PasswordFailFragment passwordFailFragment;
+    private PendingIntent mGeofencePendingIntent;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,14 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         setContentView(R.layout.panic_trigger_main_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Create a GoogleApiClient instance
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */,
+                        this /* OnConnectionFailedListener */)
+                .addApi(LocationServices.API)
+                .build();
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -117,6 +135,20 @@ public class PanicTriggerActivity extends AppCompatActivity implements
                         .commit();
             }
         }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // An unresolvable error has occurred and a connection to Google APIs
+        // could not be established. Display an error message, or handle
+        // the failure silently
+
+        // ...
+    }
+
+    @Override
+    public void onResult(@NonNull Result result) {
+
     }
 
     @Override
@@ -234,10 +266,27 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         }
     }
 
+    /*
+     * --- Helpers ---
+     */
+
     private void saveDryRunState(boolean state) {
         SharedPreferences.Editor edit = prefs.edit();
         edit.putBoolean(getString(R.string.pref_dry_run_enabled), state);
         edit.apply();
+    }
+
+    private PendingIntent getGeofencePendingIntent() {
+        if (mGeofencePendingIntent == null) {
+            Intent intent = new Intent(this, GeofenceTransition.class);
+            // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
+            // calling addGeofences() and removeGeofences().
+            mGeofencePendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.
+                    FLAG_UPDATE_CURRENT);
+        }
+
+        // Reuse the PendingIntent if we already have it.
+        return mGeofencePendingIntent;
     }
 
     /*
@@ -376,33 +425,31 @@ public class PanicTriggerActivity extends AppCompatActivity implements
                                 location.getLongitude(),
                                 distance
                         )
-                        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                                Geofence.GEOFENCE_TRANSITION_EXIT)
+                        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
                         .build());
 
                 GeofencingRequest.Builder geo = new GeofencingRequest.Builder();
-                geo.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
                 geo.addGeofences(mGeofenceList);
 
-                LocationServices.GeofencingApi.addGeofences(
-                        mGoogleApiClient,
-                        geo.build(),
-                        getGeofencePendingIntent()
-                ).setResultCallback(this);
+                try {
+                    LocationServices.GeofencingApi.addGeofences(
+                            mGoogleApiClient,
+                            geo.build(),
+                            getGeofencePendingIntent()
+                    ).setResultCallback(PanicTriggerActivity.this);
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private PendingIntent getGeofencePendingIntent() {
-        // Reuse the PendingIntent if we already have it.
-        if (mGeofencePendingIntent != null) {
-            return mGeofencePendingIntent;
-        }
-
-        Intent intent = new Intent(this, GeofenceTransition.class);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-        // calling addGeofences() and removeGeofences().
-        return PendingIntent.getService(this, 0, intent, PendingIntent.
-                FLAG_UPDATE_CURRENT);
+    @Override
+    public void geofenceStop() {
+        LocationServices.GeofencingApi.removeGeofences(
+                mGoogleApiClient,
+                // This is the same pending intent that was used in addGeofences().
+                getGeofencePendingIntent()
+        ).setResultCallback(this); // Result processed in onResult().
     }
 }
