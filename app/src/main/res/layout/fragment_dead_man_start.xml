@@ -51,7 +51,7 @@
 
     <ImageButton
         android:id="@+id/run_deadman"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
         android:background="@color/fragment_background"
@@ -59,7 +59,8 @@
         android:cropToPadding="false"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        app:srcCompat="@drawable/ic_ripple_trigger_no_shadow" />
+        app:srcCompat="@drawable/ic_ripple_trigger_no_shadow"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
