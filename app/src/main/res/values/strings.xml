@@ -40,7 +40,7 @@
     <string name="start_dead_man">Start Dead Man\'s Trigger</string>
     <string name="stop_dead_man">Stop Dead Man\'s Trigger</string>
     <string name="dead_man">Dead Man\'s Trigger</string>
-    <string name="receivers">Receivers</string>
+    <string name="action_receivers">Actions</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="click_for_trigger">Click for trigger</string>

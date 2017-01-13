@@ -12,14 +12,14 @@
             android:id="@+id/unlock"
             android:title="@string/password_fails" />
         <item
-            android:id="@+id/receivers"
-            android:title="@string/receivers" />
+            android:id="@+id/confirmation"
+            android:title="@string/confirmation_dialog" />
         <item
             android:id="@+id/notifications"
             android:title="@string/notifications" />
         <item
-            android:id="@+id/confirmation"
-            android:title="@string/confirmation_dialog" />
+            android:id="@+id/receivers"
+            android:title="@string/action_receivers" />
     </group>
 
     <item

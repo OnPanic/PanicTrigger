@@ -38,4 +38,5 @@
     <string name="password_fails">Fallos de contraseña</string>
     <string name="click_for_trigger">Haga clic para activar</string>
     <string name="deadman_date_summary">Dead Man\'s Trigger está programado para:</string>
+    <string name="action_receivers">Acciones</string>
 </resources>
