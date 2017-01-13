@@ -46,6 +46,8 @@
     <string name="click_for_trigger">Click for trigger</string>
     <string name="deadman_date_summary">Dead Man\'s Trigger is scheduled for:</string>
 
+    <string name="project_url" translatable="false">onpanic.org</string>
+
     <string name="pref_login_failures_number" translatable="false">pref_login_failures_number</string>
     <string name="pref_countdown_enabled" translatable="false">pref_countdown_enabled</string>
     <string name="pref_login_action" translatable="false">pref_login_action</string>
