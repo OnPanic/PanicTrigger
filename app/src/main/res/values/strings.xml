@@ -36,6 +36,7 @@
     <string name="runned_test_notification_content">This was only a test</string>
     <string name="runned_test_notification_title">Panic Test</string>
     <string name="notifications">Notifications</string>
+    <string name="geofences">Geofences</string>
     <string name="prefscreen_dead_man_summary">Schedule the execution of a panic trigger after a specified time</string>
     <string name="start_dead_man">Start Dead Man\'s Trigger</string>
     <string name="stop_dead_man">Stop Dead Man\'s Trigger</string>
@@ -45,6 +46,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="click_for_trigger">Click for trigger</string>
     <string name="deadman_date_summary">Dead Man\'s Trigger is scheduled for:</string>
+    <string name="please_grant_permissions_for_get_location">Please grant permissions for get location</string>
+    <string name="activate">Activate</string>
+    <string name="screen_geofences_summary">Define a perimeter to stay in, if the device exits a panic trigger wil be raised</string>
+    <string name="start_geofences">Start geofence</string>
 
     <string name="project_url" translatable="false">onpanic.org</string>
 
@@ -62,4 +67,5 @@
     <string name="pref_deadman_timestamp" translatable="false">pref_deadman_timestamp</string>
     <string name="pref_deadman_rand" translatable="false">pref_deadman_rand</string>
     <string name="pref_deadman_running" translatable="false">pref_deadman_running</string>
+
 </resources>

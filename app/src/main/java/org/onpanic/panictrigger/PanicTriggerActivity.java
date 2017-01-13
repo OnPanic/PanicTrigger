@@ -10,6 +10,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,11 +30,14 @@ import org.onpanic.panictrigger.constants.PanicTriggerConstants;
 import org.onpanic.panictrigger.fragments.ConfirmationsFragment;
 import org.onpanic.panictrigger.fragments.DeadManFragmentStart;
 import org.onpanic.panictrigger.fragments.DeadManFragmentStop;
+import org.onpanic.panictrigger.fragments.LockedByPermissions;
 import org.onpanic.panictrigger.fragments.NotificationsFragment;
 import org.onpanic.panictrigger.fragments.PanicFragment;
 import org.onpanic.panictrigger.fragments.PasswordFailFragment;
 import org.onpanic.panictrigger.fragments.ReceiversFragment;
+import org.onpanic.panictrigger.fragments.StartGeofencesFragment;
 import org.onpanic.panictrigger.notifications.PanicNotification;
+import org.onpanic.panictrigger.permissions.PermissionManager;
 import org.onpanic.panictrigger.receivers.DeadManReceiver;
 import org.onpanic.panictrigger.receivers.PasswordFailsReceiver;
 
@@ -50,7 +54,8 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         PanicFragment.OnPanicFragmentAction,
         NavigationView.OnNavigationItemSelectedListener,
         DeadManFragmentStart.DeadManStartCallBack,
-        DeadManFragmentStop.DeadManStopCallBack {
+        DeadManFragmentStop.DeadManStopCallBack,
+        StartGeofencesFragment.OnGeofenceStart {
 
     private FragmentManager mFragmentManager;
     private String requestPackageName;
@@ -145,6 +150,15 @@ public class PanicTriggerActivity extends AppCompatActivity implements
                         .replace(R.id.fragment_container, passwordFailFragment)
                         .commit();
                 break;
+            case R.id.geofences:
+                if (PermissionManager.isLollipopOrHigher() && !PermissionManager.hasLocationPermission(this)) {
+                    PermissionManager.requestLocationPermissions(this, PanicTriggerConstants.REQUEST_LOCATION_PERMISSION);
+                } else {
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, new StartGeofencesFragment())
+                            .commit();
+                }
+                break;
             case R.id.notifications:
                 mFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, new NotificationsFragment())
@@ -188,6 +202,28 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case PanicTriggerConstants.REQUEST_LOCATION_PERMISSION: {
+                if (grantResults.length < 1
+                        || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, new LockedByPermissions())
+                            .commit();
+                } else {
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, new StartGeofencesFragment())
+                            .commit();
+                }
+
+                break;
+            }
+        }
     }
 
     private void saveDryRunState(boolean state) {
@@ -315,5 +351,10 @@ public class PanicTriggerActivity extends AppCompatActivity implements
         mFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, new DeadManFragmentStart())
                 .commit();
+    }
+
+    @Override
+    public void geofenceStart(Integer distance) {
+
     }
 }

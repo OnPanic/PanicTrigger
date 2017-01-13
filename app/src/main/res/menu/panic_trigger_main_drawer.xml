@@ -12,6 +12,9 @@
             android:id="@+id/unlock"
             android:title="@string/password_fails" />
         <item
+            android:id="@+id/geofences"
+            android:title="@string/geofences" />
+        <item
             android:id="@+id/confirmation"
             android:title="@string/confirmation_dialog" />
         <item
