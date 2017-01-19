@@ -29,7 +29,7 @@ public class DeadManReceiver extends BroadcastReceiver {
             SharedPreferences.Editor edit = prefs.edit();
             edit.putBoolean(context.getString(R.string.pref_deadman_running), false);
             edit.putLong(context.getString(R.string.pref_deadman_timestamp), 0);
-            edit.putString(context.getString(R.string.pref_deadman_rand), null);
+            edit.putString(context.getString(R.string.pref_deadman_rand), UUID.randomUUID().toString());
             edit.apply();
 
             Intent panic = new Intent(context, PanicActivity.class);
